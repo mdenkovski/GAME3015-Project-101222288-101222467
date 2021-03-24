@@ -166,7 +166,7 @@ void Game::registerStates()
 {
 	//mStateStack.registerState<TitleState>(States::Title);
 	//mStateStack.registerState<MenuState>(States::Menu);
-	mStateStack.registerState<GameState>(States::Game, this);
+	mStateStack.registerState<GameState>(States::Game, &mWorld);
 	//mStateStack.registerState<PauseState>(States::Pause);
 }
 

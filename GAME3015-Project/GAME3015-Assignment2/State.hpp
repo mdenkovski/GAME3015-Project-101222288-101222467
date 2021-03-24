@@ -20,7 +20,7 @@
 
 class StateStack;
 class Player;
-class Game;
+class World;
 
 class State
 {
@@ -39,7 +39,7 @@ class State
 
 
 	public:
-							State(StateStack& stack, Context context, Game* game);
+							State(StateStack& stack, Context context, World* world = nullptr);
 		virtual				~State();
 
 		virtual void		draw() = 0;
@@ -58,7 +58,7 @@ class State
 	private:
 		StateStack*			mStack;
 		Context				mContext;
-		Game* mGame;
+		World*				mWorld;
 };
 
 #endif // BOOK_STATE_HPP

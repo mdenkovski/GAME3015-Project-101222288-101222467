@@ -22,7 +22,7 @@
 //	class RenderWindow;
 //}
 
-class Game;
+class World;
 
 class StateStack //: private sf::NonCopyable
 {
@@ -39,7 +39,7 @@ class StateStack //: private sf::NonCopyable
 		explicit			StateStack(State::Context context);
 
 		template <typename T>
-		void				registerState(States::ID stateID, Game* game);
+		void				registerState(States::ID stateID, World* world = nullptr);
 
 		void				update(const GameTimer& gt);
 		void				draw();
@@ -77,11 +77,11 @@ class StateStack //: private sf::NonCopyable
 
 
 template <typename T>
-void StateStack::registerState(States::ID stateID, Game* game)
+void StateStack::registerState(States::ID stateID, World* world)
 {
-	mFactories[stateID] = [this, &game] ()
+	mFactories[stateID] = [this, world] ()
 	{
-		return State::Ptr(new T(*this, mContext, game));
+		return State::Ptr(new T(*this, mContext, world));
 	};
 }
 
