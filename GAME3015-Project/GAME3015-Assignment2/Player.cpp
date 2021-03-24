@@ -42,10 +42,7 @@ Player::Player()
 	// Set initial action bindings
 	initializeActions();
 
-	for (auto pair : mKeyBinding)
-	{
-		mKeyFlag[pair.first] = false;
-	}
+	resetKeyFlags();
 
 	// Assign all categories to player's aircraft
 	for (auto& pair : mActionBinding)
@@ -88,6 +85,7 @@ void Player::handleRealtimeInput(CommandQueue& commands)
 	}
 }
 
+
 void Player::assignKey(Action action, char key)
 {
 	// Remove all keys that already map to action
@@ -122,6 +120,14 @@ void Player::initializeActions()
 	mActionBinding[MoveRight].action = derivedAction<Aircraft>(AircraftMover(+playerSpeed, 0.f, 0.0f));
 	mActionBinding[MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.0f, +playerSpeed));
 	mActionBinding[MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.0f, -playerSpeed));
+}
+
+void Player::resetKeyFlags()
+{
+	for (auto pair : mKeyBinding)
+	{
+		mKeyFlag[pair.first] = false;
+	}
 }
 
 bool Player::isRealtimeAction(Action action)
