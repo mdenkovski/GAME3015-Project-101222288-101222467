@@ -105,5 +105,4 @@ public:
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
 
-	Microsoft::WRL::ComPtr<ID3D12CommandAllocator>* GetComandAllocator() { return &mDirectCmdListAlloc; }
 };
