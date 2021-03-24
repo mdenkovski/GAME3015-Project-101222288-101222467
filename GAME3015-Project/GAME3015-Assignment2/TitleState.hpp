@@ -12,7 +12,7 @@
 class TitleState : public State
 {
 	public:
-							TitleState(StateStack& stack, Context context);
+							TitleState(StateStack& stack, Context context, World* game);
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
@@ -30,7 +30,6 @@ class TitleState : public State
 
 		Game* mGame;
 		SceneNode* mSceneGraph;
-		std::vector<std::unique_ptr<RenderItem>>* mAllRitems;
 };
 
 #endif // BOOK_TITLESTATE_HPP
