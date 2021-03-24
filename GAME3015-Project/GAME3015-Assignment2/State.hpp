@@ -1,11 +1,11 @@
 #ifndef BOOK_STATE_HPP
 #define BOOK_STATE_HPP
 
-#include <StateIdentifiers.hpp>
-#include <ResourceIdentifiers.hpp>
+#include "StateIdentifiers.hpp"
+#include "ResourceIdentifiers.hpp""
 
-#include <SFML/System/Time.hpp>
-#include <SFML/Window/Event.hpp>
+//#include <SFML/System/Time.hpp>
+//#include <SFML/Window/Event.hpp>
 
 #include <memory>
 
@@ -39,8 +39,8 @@ class State
 		virtual				~State();
 
 		virtual void		draw() = 0;
-		virtual bool		update(sf::Time dt) = 0;
-		virtual bool		handleEvent(const sf::Event& event) = 0;
+		virtual bool		update(const GameTimer& gt) = 0;
+		virtual bool		handleEvent() = 0;
 
 
 	protected:

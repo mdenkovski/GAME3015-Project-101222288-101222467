@@ -1,12 +1,13 @@
 #ifndef BOOK_STATESTACK_HPP
 #define BOOK_STATESTACK_HPP
 
-#include <State.hpp>
-#include <StateIdentifiers.hpp>
-#include <ResourceIdentifiers.hpp>
+#include "State.hpp"
+#include "StateIdentifiers.hpp"
+#include "ResourceIdentifiers.hpp"
+#include "../../Common/d3dApp.h"
 
-#include <SFML/System/NonCopyable.hpp>
-#include <SFML/System/Time.hpp>
+//#include <SFML/System/NonCopyable.hpp>
+//#include <SFML/System/Time.hpp>
 
 #include <vector>
 #include <utility>
@@ -20,7 +21,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class StateStack : private sf::NonCopyable
+class StateStack //: private sf::NonCopyable
 {
 	public:
 		enum Action
@@ -37,9 +38,9 @@ class StateStack : private sf::NonCopyable
 		template <typename T>
 		void				registerState(States::ID stateID);
 
-		void				update(sf::Time dt);
+		void				update(const GameTimer& gt);
 		void				draw();
-		void				handleEvent(const sf::Event& event);
+		void				handleEvent();
 
 		void				pushState(States::ID stateID);
 		void				popState();

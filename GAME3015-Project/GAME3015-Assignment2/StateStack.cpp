@@ -1,4 +1,5 @@
-#include <StateStack.hpp>
+
+#include "StateStack.hpp"
 
 #include <cassert>
 
@@ -10,12 +11,12 @@ StateStack::StateStack(State::Context context)
 {
 }
 
-void StateStack::update(sf::Time dt)
+void StateStack::update(const GameTimer& gt)
 {
 	// Iterate from top to bottom, stop as soon as update() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
-		if (!(*itr)->update(dt))
+		if (!(*itr)->update(gt))
 			break;
 	}
 
@@ -29,12 +30,12 @@ void StateStack::draw()
 		state->draw();
 }
 
-void StateStack::handleEvent(const sf::Event& event)
+void StateStack::handleEvent()
 {
 	// Iterate from top to bottom, stop as soon as handleEvent() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
-		if (!(*itr)->handleEvent(event))
+		if (!(*itr)->handleEvent())
 			break;
 	}
 
