@@ -27,6 +27,7 @@ public:
 
 private:
 	void					initializeActions();
+	void					resetKeyFlags();
 	static bool				isRealtimeAction(Action action);
 
 
