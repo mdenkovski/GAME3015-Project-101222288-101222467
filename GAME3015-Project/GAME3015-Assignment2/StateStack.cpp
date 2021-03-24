@@ -13,6 +13,8 @@ StateStack::StateStack(State::Context context)
 
 void StateStack::update(const GameTimer& gt)
 {
+	handleEvent();
+
 	// Iterate from top to bottom, stop as soon as update() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{

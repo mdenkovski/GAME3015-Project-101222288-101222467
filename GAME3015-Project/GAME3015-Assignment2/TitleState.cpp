@@ -3,21 +3,21 @@
 //#include <ResourceHolder.hpp>
 
 
-TitleState::TitleState(StateStack& stack, Context context)
-: State(stack, context)
+TitleState::TitleState(StateStack& stack, Context context, World* game)
+: State(stack, context, game)
 //, mText()
 , mShowText(true)
 , mTextEffectTime(),
 mBackground(nullptr)
 {
 
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
-	mBackground = backgroundSprite.get();
-	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
-	mBackground->setPosition(0, 0, 0.0);
-	mBackground->setScale(200.0, 1.0, 200.0);
-	mBackground->setVelocity(0, 0, 0);
-	mSceneGraph->attachChild(std::move(backgroundSprite));
+	//std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
+	//mBackground = backgroundSprite.get();
+	////mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
+	//mBackground->setPosition(0, 0, 0.0);
+	//mBackground->setScale(200.0, 1.0, 200.0);
+	//mBackground->setVelocity(0, 0, 0);
+	//mSceneGraph->attachChild(std::move(backgroundSprite));
 
 	/*mText.setFont(context.fonts->get(Fonts::Main));
 	mText.setString("Press any key to start");
@@ -34,7 +34,7 @@ void TitleState::draw()
 		window.draw(mText);*/
 
 
-	mSceneGraph->draw();
+	//mSceneGraph->draw();
 }
 
 bool TitleState::update(const GameTimer& gt)
@@ -57,8 +57,8 @@ bool TitleState::handleEvent()
 		if (GetAsyncKeyState(i) & 0x8000)
 		{
 			////key pressed
-			//requestStackPop();
-			//requestStackPush(States::Menu);
+			requestStackPop();
+			requestStackPush(States::Game);
 			break;
 		}
 	}

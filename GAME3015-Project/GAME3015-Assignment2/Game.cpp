@@ -54,7 +54,7 @@ bool Game::Initialize()
 	FlushCommandQueue();
 
 	registerStates();
-	mStateStack.pushState(States::Game);
+	mStateStack.pushState(States::Title);
 
 	return true;
 }
@@ -164,7 +164,7 @@ void Game::Draw(const GameTimer& gt)
 
 void Game::registerStates()
 {
-	//mStateStack.registerState<TitleState>(States::Title);
+	mStateStack.registerState<TitleState>(States::Title);
 	//mStateStack.registerState<MenuState>(States::Menu);
 	mStateStack.registerState<GameState>(States::Game, &mWorld);
 	//mStateStack.registerState<PauseState>(States::Pause);

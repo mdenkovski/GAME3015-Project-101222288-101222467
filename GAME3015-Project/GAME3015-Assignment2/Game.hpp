@@ -2,7 +2,7 @@
 #include "Player.hpp"
 
 #include "StateIdentifiers.hpp"
-//#include "TitleState.hpp"
+#include "TitleState.hpp"
 #include "GameState.hpp"
 //#include "MenuState.hpp"
 //#include "PauseState.hpp"
