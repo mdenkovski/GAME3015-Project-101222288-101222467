@@ -10,11 +10,10 @@
 //#include <SFML/Graphics/Sprite.hpp>
 //#include <SFML/Graphics/Text.hpp>
 
-
 class GameState : public State
 {
 	public:
-							GameState(StateStack& stack, Context context, World* game);
+							GameState(StateStack& stack, Context context, Game* game);
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
@@ -25,6 +24,7 @@ class GameState : public State
 
 
 	private:
+		
 		World*				mWorld;
 		Player&				mPlayer;
 };

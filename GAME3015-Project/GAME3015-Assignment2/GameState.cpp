@@ -1,9 +1,9 @@
 #include "GameState.hpp"
+#include "Game.hpp"
 
-
-GameState::GameState(StateStack& stack, Context context, World* world)
-: State(stack, context, world)
-, mWorld(world)
+GameState::GameState(StateStack& stack, Context context, Game* game)
+: State(stack, context, game)
+, mWorld(&(mGame->mWorld))
 , mPlayer(*context.player)
 {
 }

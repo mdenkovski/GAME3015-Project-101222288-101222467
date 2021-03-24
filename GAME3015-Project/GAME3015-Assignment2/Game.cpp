@@ -45,6 +45,10 @@ bool Game::Initialize()
 	BuildPSOs();
 	mPlayer = Player();
 	
+
+	
+
+
 	// Execute the initialization commands.
 	ThrowIfFailed(mCommandList->Close());
 	ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
@@ -164,9 +168,9 @@ void Game::Draw(const GameTimer& gt)
 
 void Game::registerStates()
 {
-	mStateStack.registerState<TitleState>(States::Title);
+	mStateStack.registerState<TitleState>(States::Title, this);
 	//mStateStack.registerState<MenuState>(States::Menu);
-	mStateStack.registerState<GameState>(States::Game, &mWorld);
+	mStateStack.registerState<GameState>(States::Game, this);
 	//mStateStack.registerState<PauseState>(States::Pause);
 }
 

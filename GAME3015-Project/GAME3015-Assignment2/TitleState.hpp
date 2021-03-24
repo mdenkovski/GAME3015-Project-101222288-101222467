@@ -12,21 +12,24 @@
 class TitleState : public State
 {
 	public:
-							TitleState(StateStack& stack, Context context, World* game);
+							TitleState(StateStack& stack, Context context, Game* game);
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
 		virtual bool		handleEvent();
 
 
+		void				buildScene();
+
+
 	private:
 
-		SpriteNode* mBackground;
 		//sf::Text			mText;
 
 		bool				mShowText;
 		float			mTextEffectTime;
 
+		SpriteNode* mBackground;
 
 		Game* mGame;
 		SceneNode* mSceneGraph;
