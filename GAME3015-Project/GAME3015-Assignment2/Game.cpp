@@ -323,6 +323,16 @@ void Game::LoadTextures()
 		DesertTex->Resource, DesertTex->UploadHeap));
 
 	mTextures[DesertTex->Name] = std::move(DesertTex);
+
+	//MenuBackground
+	auto MenuTex = std::make_unique<Texture>();
+	MenuTex->Name = "MenuTex";
+	MenuTex->Filename = L"../../Textures/TitleScreem.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), MenuTex->Filename.c_str(),
+		MenuTex->Resource, MenuTex->UploadHeap));
+
+	mTextures[MenuTex->Name] = std::move(MenuTex);
 }
 
 void Game::BuildRootSignature()
@@ -388,6 +398,7 @@ void Game::BuildDescriptorHeaps()
 	auto EagleTex = mTextures["EagleTex"]->Resource;
 	auto RaptorTex = mTextures["RaptorTex"]->Resource;
 	auto DesertTex = mTextures["DesertTex"]->Resource;
+	auto MenuTex = mTextures["MenuTex"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -422,6 +433,12 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = DesertTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(DesertTex.Get(), &srvDesc, hDescriptor);
+
+
+	//Menu Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = MenuTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(MenuTex.Get(), &srvDesc, hDescriptor);
 
 }
 
@@ -563,6 +580,18 @@ void Game::BuildMaterials()
 	Desert->Roughness = 0.2f;
 
 	mMaterials["Desert"] = std::move(Desert);
+
+
+	// menu background material
+	auto TitleScreen = std::make_unique<Material>();
+	TitleScreen->Name = "TitleScreen";
+	TitleScreen->MatCBIndex = 2;
+	TitleScreen->DiffuseSrvHeapIndex = 2;
+	TitleScreen->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	TitleScreen->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	TitleScreen->Roughness = 0.2f;
+
+	mMaterials["TitleScreen"] = std::move(TitleScreen);
 
 }
 

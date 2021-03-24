@@ -34,7 +34,7 @@ void TitleState::draw()
 		window.draw(mText);*/
 
 
-	//mSceneGraph->draw();
+	/*mSceneGraph->draw();*/
 }
 
 bool TitleState::update(const GameTimer& gt)
