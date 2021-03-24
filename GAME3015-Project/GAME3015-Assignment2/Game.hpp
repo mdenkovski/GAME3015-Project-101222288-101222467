@@ -1,13 +1,17 @@
 #include "World.hpp"
 #include "Player.hpp"
 
-#include "State.hpp"
 #include "StateIdentifiers.hpp"
-#include "TitleState.hpp"
+//#include "TitleState.hpp"
 #include "GameState.hpp"
-#include "MenuState.hpp"
-#include "PauseState.hpp"
-#include "LoadingState.hpp"
+//#include "MenuState.hpp"
+//#include "PauseState.hpp"
+//#include "LoadingState.hpp"
+#include "StateStack.hpp"
+
+class StateStack;
+
+
 class Game : public D3DApp
 {
 public:
@@ -29,7 +33,7 @@ private:
 	virtual void OnMouseUp(WPARAM btnState, int x, int y)override;
 	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 
-	void ProcessInput();
+	//void ProcessInput();
 	void UpdateCamera(const GameTimer& gt);
 	void AnimateMaterials(const GameTimer& gt);
 	void UpdateObjectCBs(const GameTimer& gt);
@@ -93,7 +97,7 @@ public:
 	World mWorld;
 	Player mPlayer;
 
-	StateStack				mStateStack;
+	StateStack	mStateStack;
 
 public:
 	ID3D12GraphicsCommandList*  getCmdList() { return mCommandList.Get(); }

@@ -1,9 +1,9 @@
 #include "GameState.hpp"
 
 
-GameState::GameState(StateStack& stack, Context context)
-: State(stack, context)
-, mWorld(*context.window)
+GameState::GameState(StateStack& stack, Context context, Game* game)
+: State(stack, context, game)
+, mWorld(game)
 , mPlayer(*context.player)
 {
 }
@@ -15,19 +15,15 @@ void GameState::draw()
 
 bool GameState::update(const GameTimer& gt)
 {
+	ProcessInput();
 	mWorld.update(gt);
 
-	CommandQueue& commands = mWorld.getCommandQueue();
-	mPlayer.handleRealtimeInput(commands);
 
 	return true;
 }
 
 bool GameState::handleEvent()
 {
-	// Game input handling
-	CommandQueue& commands = mWorld.getCommandQueue();
-	mPlayer.handleEvent(commands);
 
 	// Escape pressed, trigger the pause screen
 
@@ -38,4 +34,11 @@ bool GameState::handleEvent()
 	}
 #pragma endregion
 	return true;
+}
+
+void GameState::ProcessInput()
+{
+	CommandQueue& commands = mWorld.getCommandQueue();
+	mPlayer.handleEvent(commands);
+	mPlayer.handleRealtimeInput(commands);
 }

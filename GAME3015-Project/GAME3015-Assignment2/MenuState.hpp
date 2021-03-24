@@ -1,10 +1,10 @@
 #ifndef BOOK_MENUSTATE_HPP
 #define BOOK_MENUSTATE_HPP
 
-#include <State.hpp>
+#include "State.hpp"
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Text.hpp>
+//#include <SFML/Graphics/Sprite.hpp>
+//#include <SFML/Graphics/Text.hpp>
 
 
 class MenuState : public State
@@ -13,8 +13,8 @@ class MenuState : public State
 								MenuState(StateStack& stack, Context context);
 
 		virtual void			draw();
-		virtual bool			update(sf::Time dt);
-		virtual bool			handleEvent(const sf::Event& event);
+		virtual bool			update(const GameTimer& gt);
+		virtual bool			handleEvent();
 
 		void					updateOptionText();
 

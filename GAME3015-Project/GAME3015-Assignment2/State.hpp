@@ -2,7 +2,10 @@
 #define BOOK_STATE_HPP
 
 #include "StateIdentifiers.hpp"
-#include "ResourceIdentifiers.hpp""
+#include "ResourceIdentifiers.hpp"
+
+#include "../../Common/d3dApp.h"
+//#include "Game.hpp"
 
 //#include <SFML/System/Time.hpp>
 //#include <SFML/Window/Event.hpp>
@@ -17,6 +20,7 @@
 
 class StateStack;
 class Player;
+class Game;
 
 class State
 {
@@ -27,15 +31,15 @@ class State
 		{
 								Context(Player& player);
 
-			sf::RenderWindow*	window;
-			TextureHolder*		textures;
-			FontHolder*			fonts;
+			//sf::RenderWindow*	window;
+			//TextureHolder*		textures;
+			//FontHolder*			fonts;
 			Player*				player;
 		};
 
 
 	public:
-							State(StateStack& stack, Context context);
+							State(StateStack& stack, Context context, Game* game);
 		virtual				~State();
 
 		virtual void		draw() = 0;
@@ -54,6 +58,7 @@ class State
 	private:
 		StateStack*			mStack;
 		Context				mContext;
+		Game* mGame;
 };
 
 #endif // BOOK_STATE_HPP
