@@ -9,11 +9,11 @@
 
 #include <memory>
 
-
-namespace sf
-{
-	class RenderWindow;
-}
+//
+//namespace sf
+//{
+//	class RenderWindow;
+//}
 
 class StateStack;
 class Player;
@@ -25,7 +25,7 @@ class State
 
 		struct Context
 		{
-								Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player);
+								Context(Player& player);
 
 			sf::RenderWindow*	window;
 			TextureHolder*		textures;

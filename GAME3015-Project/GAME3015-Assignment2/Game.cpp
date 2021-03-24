@@ -1,10 +1,12 @@
 #include "Game.hpp"
 
+#include "StateStack.hpp"
 const int gNumFrameResources = 3;
 
 Game::Game(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 	, mWorld(this)
+	, mStateStack(State::Context(mPlayer))
 {
 }
 
@@ -50,6 +52,9 @@ bool Game::Initialize()
 
 	// Wait until initialization is complete.
 	FlushCommandQueue();
+
+	registerStates();
+	mStateStack.pushState(States::Title);
 
 	return true;
 }
@@ -152,6 +157,14 @@ void Game::Draw(const GameTimer& gt)
 	// Because we are on the GPU timeline, the new fence point won't be 
 	// set until the GPU finishes processing all the commands prior to this Signal().
 	mCommandQueue->Signal(mFence.Get(), mCurrentFence);
+}
+
+void Game::registerStates()
+{
+	mStateStack.registerState<TitleState>(States::Title);
+	mStateStack.registerState<MenuState>(States::Menu);
+	mStateStack.registerState<GameState>(States::Game);
+	mStateStack.registerState<PauseState>(States::Pause);
 }
 
 void Game::OnMouseDown(WPARAM btnState, int x, int y)
