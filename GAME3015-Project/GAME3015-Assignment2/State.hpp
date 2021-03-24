@@ -46,6 +46,8 @@ class State
 		virtual bool		update(const GameTimer& gt) = 0;
 		virtual bool		handleEvent() = 0;
 
+		virtual void		BuildScene() = 0;
+
 
 	protected:
 		void				requestStackPush(States::ID stateID);

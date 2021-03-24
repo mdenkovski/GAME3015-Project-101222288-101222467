@@ -6,6 +6,8 @@ GameState::GameState(StateStack& stack, Context context, Game* game)
 , mWorld(&(mGame->mWorld))
 , mPlayer(*context.player)
 {
+
+	//BuildScene();
 }
 
 void GameState::draw()
@@ -41,4 +43,9 @@ void GameState::ProcessInput()
 	CommandQueue& commands = mWorld->getCommandQueue();
 	mPlayer.handleEvent(commands);
 	mPlayer.handleRealtimeInput(commands);
+}
+
+void GameState::BuildScene()
+{
+	mWorld->buildScene();
 }

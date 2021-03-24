@@ -27,6 +27,9 @@ class GameState : public State
 		
 		World*				mWorld;
 		Player&				mPlayer;
+
+		// Inherited via State
+		virtual void BuildScene() override;
 };
 
 #endif // BOOK_GAMESTATE_HPP

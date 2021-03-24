@@ -40,6 +40,12 @@ bool Game::Initialize()
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
 	BuildMaterials();
+
+	registerStates();
+	mStateStack.pushState(States::Title);
+	mStateStack.applyPendingChanges();
+
+
 	BuildRenderItems();
 	BuildFrameResources();
 	BuildPSOs();
@@ -57,8 +63,6 @@ bool Game::Initialize()
 	// Wait until initialization is complete.
 	FlushCommandQueue();
 
-	registerStates();
-	mStateStack.pushState(States::Title);
 
 	return true;
 }
@@ -602,6 +606,7 @@ void Game::BuildMaterials()
 void Game::BuildRenderItems()
 {
 	mWorld.buildScene();
+	
 
 	// All the render items are opaque.
 	for (auto& e : mAllRitems)

@@ -54,6 +54,7 @@ class StateStack //: private sf::NonCopyable
 
 	private:
 		State::Ptr			createState(States::ID stateID);
+	public:
 		void				applyPendingChanges();
 
 
@@ -83,6 +84,7 @@ void StateStack::registerState(States::ID stateID, Game* game)
 	{
 		return State::Ptr(new T(*this, mContext, game));
 	};
+
 }
 
 #endif // BOOK_STATESTACK_HPP

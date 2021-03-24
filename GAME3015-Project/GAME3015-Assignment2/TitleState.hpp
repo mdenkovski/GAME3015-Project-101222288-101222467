@@ -19,8 +19,6 @@ class TitleState : public State
 		virtual bool		handleEvent();
 
 
-		void				buildScene();
-
 
 	private:
 
@@ -33,6 +31,9 @@ class TitleState : public State
 
 		Game* mGame;
 		SceneNode* mSceneGraph;
+
+		// Inherited via State
+		virtual void BuildScene() override;
 };
 
 #endif // BOOK_TITLESTATE_HPP

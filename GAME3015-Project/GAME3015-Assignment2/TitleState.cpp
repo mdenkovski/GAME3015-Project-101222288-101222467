@@ -15,6 +15,8 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 , mSceneGraph(new SceneNode(game))
 
 {
+
+	BuildScene();
 	/*mText.setFont(context.fonts->get(Fonts::Main));
 	mText.setString("Press any key to start");
 	centerOrigin(mText);
@@ -30,7 +32,7 @@ void TitleState::draw()
 		window.draw(mText);*/
 
 
-	//mSceneGraph->draw();
+	mSceneGraph->draw();
 }
 
 bool TitleState::update(const GameTimer& gt)
@@ -71,7 +73,9 @@ bool TitleState::handleEvent()
 	return true;
 }
 
-void TitleState::buildScene()
+
+
+void TitleState::BuildScene()
 {
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
