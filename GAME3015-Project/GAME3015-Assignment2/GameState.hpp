@@ -14,7 +14,7 @@
 class GameState : public State
 {
 	public:
-							GameState(StateStack& stack, Context context, Game* game);
+							GameState(StateStack& stack, Context context, World* game);
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
@@ -25,7 +25,7 @@ class GameState : public State
 
 
 	private:
-		World				mWorld;
+		World*				mWorld;
 		Player&				mPlayer;
 };
 

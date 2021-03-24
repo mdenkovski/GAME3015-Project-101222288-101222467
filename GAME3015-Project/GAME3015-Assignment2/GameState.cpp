@@ -1,22 +1,22 @@
 #include "GameState.hpp"
 
 
-GameState::GameState(StateStack& stack, Context context, Game* game)
-: State(stack, context, game)
-, mWorld(game)
+GameState::GameState(StateStack& stack, Context context, World* world)
+: State(stack, context, world)
+, mWorld(world)
 , mPlayer(*context.player)
 {
 }
 
 void GameState::draw()
 {
-	mWorld.draw();
+	mWorld->draw();
 }
 
 bool GameState::update(const GameTimer& gt)
 {
 	ProcessInput();
-	mWorld.update(gt);
+	mWorld->update(gt);
 
 
 	return true;
@@ -38,7 +38,7 @@ bool GameState::handleEvent()
 
 void GameState::ProcessInput()
 {
-	CommandQueue& commands = mWorld.getCommandQueue();
+	CommandQueue& commands = mWorld->getCommandQueue();
 	mPlayer.handleEvent(commands);
 	mPlayer.handleRealtimeInput(commands);
 }
