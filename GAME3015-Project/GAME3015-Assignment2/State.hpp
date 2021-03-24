@@ -26,10 +26,6 @@ class State
 		struct Context
 		{
 								Context(Player& player);
-
-			sf::RenderWindow*	window;
-			TextureHolder*		textures;
-			FontHolder*			fonts;
 			Player*				player;
 		};
 
