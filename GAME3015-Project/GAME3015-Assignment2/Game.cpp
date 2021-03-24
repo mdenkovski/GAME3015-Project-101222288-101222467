@@ -54,7 +54,7 @@ bool Game::Initialize()
 	FlushCommandQueue();
 
 	registerStates();
-	mStateStack.pushState(States::Title);
+	mStateStack.pushState(States::Game);
 
 	return true;
 }
@@ -72,9 +72,11 @@ void Game::OnResize()
 
 void Game::Update(const GameTimer& gt)
 {
-	ProcessInput();
-	//OnKeyboardInput(gt);
-	mWorld.update(gt);
+	//ProcessInput();
+	//mWorld.update(gt);
+	mStateStack.update(gt);
+
+
 	UpdateCamera(gt);
 
 
@@ -132,7 +134,8 @@ void Game::Draw(const GameTimer& gt)
 	auto passCB = mCurrFrameResource->PassCB->Resource();
 	mCommandList->SetGraphicsRootConstantBufferView(2, passCB->GetGPUVirtualAddress());
 
-	mWorld.draw();
+	//mWorld.draw();
+	mStateStack.draw();
 	//DrawRenderItems(mCommandList.Get(), mOpaqueRitems);
 
 	// Indicate a state transition on the resource usage.
@@ -161,10 +164,10 @@ void Game::Draw(const GameTimer& gt)
 
 void Game::registerStates()
 {
-	mStateStack.registerState<TitleState>(States::Title);
-	mStateStack.registerState<MenuState>(States::Menu);
-	mStateStack.registerState<GameState>(States::Game);
-	mStateStack.registerState<PauseState>(States::Pause);
+	//mStateStack.registerState<TitleState>(States::Title);
+	//mStateStack.registerState<MenuState>(States::Menu);
+	mStateStack.registerState<GameState>(States::Game, this);
+	//mStateStack.registerState<PauseState>(States::Pause);
 }
 
 void Game::OnMouseDown(WPARAM btnState, int x, int y)
@@ -182,54 +185,19 @@ void Game::OnMouseUp(WPARAM btnState, int x, int y)
 
 void Game::OnMouseMove(WPARAM btnState, int x, int y)
 {
-	//if ((btnState & MK_LBUTTON) != 0)
-	//{
-	//	// Make each pixel correspond to a quarter of a degree.
-	//	float dx = XMConvertToRadians(0.25f * static_cast<float>(x - mLastMousePos.x));
-	//	float dy = XMConvertToRadians(0.25f * static_cast<float>(y - mLastMousePos.y));
-
-	//	mCamera.Pitch(dy);
-	//	mCamera.RotateY(dx);
-	//}
-	//else if ((btnState & MK_RBUTTON) != 0)
-	//{
-	//	// Make each pixel correspond to 0.2 unit in the scene.
-	//	float dx = 0.05f * static_cast<float>(x - mLastMousePos.x);
-	//	float dy = 0.05f * static_cast<float>(y - mLastMousePos.y);
-
-	//	//To Do
-	//	// Update the camera radius based on input.
-	//	//mRadius += dx - dy;
-
-	//	// Restrict the radius.
-	//	//mRadius = MathHelper::Clamp(mRadius, 5.0f, 150.0f);
-	//}
-
-	//mLastMousePos.x = x;
-	//mLastMousePos.y = y;
+	
 }
 
-void Game::ProcessInput()
-{
-	CommandQueue& commands = mWorld.getCommandQueue();
-	mPlayer.handleEvent(commands);
-	mPlayer.handleRealtimeInput(commands);
-}
+//void Game::ProcessInput()
+//{
+//	CommandQueue& commands = mWorld.getCommandQueue();
+//	mPlayer.handleEvent(commands);
+//	mPlayer.handleRealtimeInput(commands);
+//}
 
 void Game::UpdateCamera(const GameTimer& gt)
 {
-	// Convert Spherical to Cartesian coordinates.
-	//mEyePos.x = mRadius * sinf(mPhi) * cosf(mTheta);
-	//mEyePos.z = mRadius * sinf(mPhi) * sinf(mTheta);
-	//mEyePos.y = mRadius * cosf(mPhi);
-
-	//// Build the view matrix.
-	//XMVECTOR pos = XMVectorSet(mEyePos.x, mEyePos.y, mEyePos.z, 1.0f);
-	//XMVECTOR target = XMVectorZero();
-	//XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-
-	//XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	//XMStoreFloat4x4(&mView, view);
+	
 	mCamera.UpdateViewMatrix();
 
 }

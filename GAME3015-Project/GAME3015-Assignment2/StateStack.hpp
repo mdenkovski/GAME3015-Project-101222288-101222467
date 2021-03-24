@@ -5,6 +5,7 @@
 #include "StateIdentifiers.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "../../Common/d3dApp.h"
+//#include "Game.hpp"
 
 //#include <SFML/System/NonCopyable.hpp>
 //#include <SFML/System/Time.hpp>
@@ -14,12 +15,14 @@
 #include <functional>
 #include <map>
 
+//
+//namespace sf
+//{
+//	class Event;
+//	class RenderWindow;
+//}
 
-namespace sf
-{
-	class Event;
-	class RenderWindow;
-}
+class Game;
 
 class StateStack //: private sf::NonCopyable
 {
@@ -36,7 +39,7 @@ class StateStack //: private sf::NonCopyable
 		explicit			StateStack(State::Context context);
 
 		template <typename T>
-		void				registerState(States::ID stateID);
+		void				registerState(States::ID stateID, Game* game);
 
 		void				update(const GameTimer& gt);
 		void				draw();
@@ -74,11 +77,11 @@ class StateStack //: private sf::NonCopyable
 
 
 template <typename T>
-void StateStack::registerState(States::ID stateID)
+void StateStack::registerState(States::ID stateID, Game* game)
 {
-	mFactories[stateID] = [this] ()
+	mFactories[stateID] = [this, &game] ()
 	{
-		return State::Ptr(new T(*this, mContext));
+		return State::Ptr(new T(*this, mContext, game));
 	};
 }
 
