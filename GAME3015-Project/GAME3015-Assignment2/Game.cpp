@@ -327,7 +327,7 @@ void Game::LoadTextures()
 	//MenuBackground
 	auto MenuTex = std::make_unique<Texture>();
 	MenuTex->Name = "MenuTex";
-	MenuTex->Filename = L"../../Textures/TitleScreem.dds";
+	MenuTex->Filename = L"../../Textures/TitleScreen.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), MenuTex->Filename.c_str(),
 		MenuTex->Resource, MenuTex->UploadHeap));
@@ -385,7 +385,7 @@ void Game::BuildDescriptorHeaps()
 	// Create the SRV heap.
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 3;
+	srvHeapDesc.NumDescriptors = 4;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -585,8 +585,8 @@ void Game::BuildMaterials()
 	// menu background material
 	auto TitleScreen = std::make_unique<Material>();
 	TitleScreen->Name = "TitleScreen";
-	TitleScreen->MatCBIndex = 2;
-	TitleScreen->DiffuseSrvHeapIndex = 2;
+	TitleScreen->MatCBIndex = 3;
+	TitleScreen->DiffuseSrvHeapIndex = 3;
 	TitleScreen->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	TitleScreen->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	TitleScreen->Roughness = 0.2f;
