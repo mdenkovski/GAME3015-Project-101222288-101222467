@@ -1,24 +1,22 @@
 #include "TitleState.hpp"
+#include "World.hpp"
+#include "Game.hpp"
 //#include <Utility.hpp>
 //#include <ResourceHolder.hpp>
 
 
-TitleState::TitleState(StateStack& stack, Context context, World* game)
+TitleState::TitleState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
 //, mText()
 , mShowText(true)
-, mTextEffectTime(),
-mBackground(nullptr)
+, mTextEffectTime()
+, mBackground(nullptr)
+, mGame(game)
+, mSceneGraph(new SceneNode(game))
+
 {
 
-	//std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
-	//mBackground = backgroundSprite.get();
-	////mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
-	//mBackground->setPosition(0, 0, 0.0);
-	//mBackground->setScale(200.0, 1.0, 200.0);
-	//mBackground->setVelocity(0, 0, 0);
-	//mSceneGraph->attachChild(std::move(backgroundSprite));
-
+	BuildScene();
 	/*mText.setFont(context.fonts->get(Fonts::Main));
 	mText.setString("Press any key to start");
 	centerOrigin(mText);
@@ -34,7 +32,7 @@ void TitleState::draw()
 		window.draw(mText);*/
 
 
-	//mSceneGraph->draw();
+	mSceneGraph->draw();
 }
 
 bool TitleState::update(const GameTimer& gt)
@@ -73,4 +71,19 @@ bool TitleState::handleEvent()
 	//}
 
 	return true;
+}
+
+
+
+void TitleState::BuildScene()
+{
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
+	mBackground = backgroundSprite.get();
+	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
+	mBackground->setPosition(0, 0, 0.0);
+	mBackground->setScale(200.0, 1.0, 200.0);
+	mBackground->setVelocity(0, 0, 0);
+	mSceneGraph->attachChild(std::move(backgroundSprite));
+
+	mSceneGraph->build();
 }

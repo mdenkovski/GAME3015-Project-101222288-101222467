@@ -1,7 +1,8 @@
 #include "SpriteNode.h"
 #include "Game.hpp"
 
-SpriteNode::SpriteNode(Game* game) : Entity(game)
+SpriteNode::SpriteNode(Game* game, std::string spriteImage) : Entity(game)
+, mSprite(spriteImage)
 {
 }
 
@@ -44,7 +45,7 @@ void SpriteNode::buildCurrent()
 	renderer->World = getTransform();
 	XMStoreFloat4x4(&renderer->TexTransform, XMMatrixScaling(50.0f, 50.0f, 1.0f));
 	renderer->ObjCBIndex = (UINT) game->getRenderItems().size();
-	renderer->Mat = game->getMaterials()["Desert"].get();
+	renderer->Mat = game->getMaterials()[mSprite].get();
 	renderer->Geo = game->getGeometries()["boxGeo"].get();
 	renderer->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	renderer->IndexCount = renderer->Geo->DrawArgs["box"].IndexCount;
@@ -52,4 +53,5 @@ void SpriteNode::buildCurrent()
 	renderer->BaseVertexLocation = renderer->Geo->DrawArgs["box"].BaseVertexLocation;
 	mSpriteNodeRitem = render.get();
 	game->getRenderItems().push_back(std::move(render));
+
 }

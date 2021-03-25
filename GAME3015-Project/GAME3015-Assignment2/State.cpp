@@ -7,11 +7,12 @@ State::Context::Context(Player& player)
 {
 }
 
-State::State(StateStack& stack, Context context, World* world)
+State::State(StateStack& stack, Context context, Game* game)
 : mStack(&stack)
 , mContext(context)
-, mWorld(world)
+, mGame(game)
 {
+	//BuildScene();
 }
 
 State::~State()

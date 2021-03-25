@@ -22,7 +22,7 @@
 //	class RenderWindow;
 //}
 
-class World;
+class Game;
 
 class StateStack //: private sf::NonCopyable
 {
@@ -39,7 +39,7 @@ class StateStack //: private sf::NonCopyable
 		explicit			StateStack(State::Context context);
 
 		template <typename T>
-		void				registerState(States::ID stateID, World* world = nullptr);
+		void				registerState(States::ID stateID, Game* game);
 
 		void				update(const GameTimer& gt);
 		void				draw();
@@ -54,6 +54,7 @@ class StateStack //: private sf::NonCopyable
 
 	private:
 		State::Ptr			createState(States::ID stateID);
+	public:
 		void				applyPendingChanges();
 
 
@@ -77,12 +78,13 @@ class StateStack //: private sf::NonCopyable
 
 
 template <typename T>
-void StateStack::registerState(States::ID stateID, World* world)
+void StateStack::registerState(States::ID stateID, Game* game)
 {
-	mFactories[stateID] = [this, world] ()
+	mFactories[stateID] = [this, game] ()
 	{
-		return State::Ptr(new T(*this, mContext, world));
+		return State::Ptr(new T(*this, mContext, game));
 	};
+
 }
 
 #endif // BOOK_STATESTACK_HPP

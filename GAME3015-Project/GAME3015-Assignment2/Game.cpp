@@ -40,11 +40,21 @@ bool Game::Initialize()
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
 	BuildMaterials();
+
+	registerStates();
+	mStateStack.pushState(States::Title);
+	mStateStack.applyPendingChanges();
+
+
 	BuildRenderItems();
 	BuildFrameResources();
 	BuildPSOs();
 	mPlayer = Player();
 	
+
+	
+
+
 	// Execute the initialization commands.
 	ThrowIfFailed(mCommandList->Close());
 	ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
@@ -53,8 +63,6 @@ bool Game::Initialize()
 	// Wait until initialization is complete.
 	FlushCommandQueue();
 
-	registerStates();
-	mStateStack.pushState(States::Title);
 
 	return true;
 }
@@ -164,9 +172,9 @@ void Game::Draw(const GameTimer& gt)
 
 void Game::registerStates()
 {
-	mStateStack.registerState<TitleState>(States::Title);
+	mStateStack.registerState<TitleState>(States::Title, this);
 	//mStateStack.registerState<MenuState>(States::Menu);
-	mStateStack.registerState<GameState>(States::Game, &mWorld);
+	mStateStack.registerState<GameState>(States::Game, this);
 	//mStateStack.registerState<PauseState>(States::Pause);
 }
 
@@ -323,6 +331,16 @@ void Game::LoadTextures()
 		DesertTex->Resource, DesertTex->UploadHeap));
 
 	mTextures[DesertTex->Name] = std::move(DesertTex);
+
+	//MenuBackground
+	auto MenuTex = std::make_unique<Texture>();
+	MenuTex->Name = "MenuTex";
+	MenuTex->Filename = L"../../Textures/TitleScreen.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), MenuTex->Filename.c_str(),
+		MenuTex->Resource, MenuTex->UploadHeap));
+
+	mTextures[MenuTex->Name] = std::move(MenuTex);
 }
 
 void Game::BuildRootSignature()
@@ -375,7 +393,7 @@ void Game::BuildDescriptorHeaps()
 	// Create the SRV heap.
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 3;
+	srvHeapDesc.NumDescriptors = 4;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -388,6 +406,7 @@ void Game::BuildDescriptorHeaps()
 	auto EagleTex = mTextures["EagleTex"]->Resource;
 	auto RaptorTex = mTextures["RaptorTex"]->Resource;
 	auto DesertTex = mTextures["DesertTex"]->Resource;
+	auto MenuTex = mTextures["MenuTex"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -422,6 +441,12 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = DesertTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(DesertTex.Get(), &srvDesc, hDescriptor);
+
+
+	//Menu Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = MenuTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(MenuTex.Get(), &srvDesc, hDescriptor);
 
 }
 
@@ -564,11 +589,24 @@ void Game::BuildMaterials()
 
 	mMaterials["Desert"] = std::move(Desert);
 
+
+	// menu background material
+	auto TitleScreen = std::make_unique<Material>();
+	TitleScreen->Name = "TitleScreen";
+	TitleScreen->MatCBIndex = 3;
+	TitleScreen->DiffuseSrvHeapIndex = 3;
+	TitleScreen->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	TitleScreen->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	TitleScreen->Roughness = 0.2f;
+
+	mMaterials["TitleScreen"] = std::move(TitleScreen);
+
 }
 
 void Game::BuildRenderItems()
 {
 	mWorld.buildScene();
+	
 
 	// All the render items are opaque.
 	for (auto& e : mAllRitems)

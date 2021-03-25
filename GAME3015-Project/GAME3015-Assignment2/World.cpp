@@ -9,7 +9,7 @@ World::World(Game* game)
 	, mBackground(nullptr)
 	, mWorldBounds(-4.5f, 4.5f, -3.0f, 3.0f) //Left, Right, Down, Up
 	, mSpawnPosition(0.f, 0.f)
-	, mScrollSpeed(1.0f)		
+	, mScrollSpeed(1.0f)
 {
 }
 
