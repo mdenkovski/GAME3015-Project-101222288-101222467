@@ -37,6 +37,10 @@ bool GameState::handleEvent()
 		requestStackPush(States::Pause);
 		isPaused = true;
 	}
+	else
+	{
+		isPaused = false;
+	}
 #pragma endregion
 	return true;
 }

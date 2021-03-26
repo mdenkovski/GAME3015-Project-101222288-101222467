@@ -16,6 +16,7 @@ PauseState::PauseState(StateStack& stack, Context context, Game* game)
 , mPausedText(nullptr)
 , mInstructionText(nullptr)
 , mSceneGraph(new SceneNode(game))
+, pauseStarted(true)
 {
 	/*sf::Font& font = context.fonts->get(Fonts::Main);
 	sf::Vector2f viewSize = context.window->getView().getSize();
@@ -60,7 +61,7 @@ void PauseState::draw()
 
 bool PauseState::update(const GameTimer& gt)
 {
-
+	
 	mSceneGraph->update(gt);
 	return true;
 }
@@ -86,12 +87,18 @@ bool PauseState::handleEvent()
 	//return false;
 
 
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000 && !pauseStarted)
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStackPop();
+		pauseStarted = true;
 	}
-	else if (GetAsyncKeyState(VK_BACK) & 0x8000)
+	else
+	{
+		pauseStarted = false;
+	}
+
+	if (GetAsyncKeyState(VK_BACK) & 0x8000)
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStateClear();
