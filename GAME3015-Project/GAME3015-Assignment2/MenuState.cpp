@@ -57,6 +57,8 @@ void MenuState::draw()
 
 bool MenuState::update(const GameTimer& gt)
 {
+	mSceneGraph->update(gt);
+
 	return true;
 }
 

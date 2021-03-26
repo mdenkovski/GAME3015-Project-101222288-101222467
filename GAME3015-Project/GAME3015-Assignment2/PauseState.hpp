@@ -1,26 +1,31 @@
 #pragma region step 2
 #pragma once
 
-#include <State.hpp>
+#include "State.hpp"
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include "SpriteNode.h"
+#include "../../Common/d3dApp.h"
+
 
 
 class PauseState : public State
 {
 	public:
-							PauseState(StateStack& stack, Context context);
+							PauseState(StateStack& stack, Context context, Game* game);
 
 		virtual void		draw();
-		virtual bool		update(sf::Time dt);
-		virtual bool		handleEvent(const sf::Event& event);
+		virtual bool		update(const GameTimer& gt);
+		virtual bool		handleEvent();
 
 
 	private:
-		sf::Sprite			mBackgroundSprite;
-		sf::Text			mPausedText;
-		sf::Text			mInstructionText;
+		SceneNode* mSceneGraph;
+		SpriteNode* mBackground;
+		SpriteNode* mPausedText;
+		SpriteNode* mInstructionText;
+
+		// Inherited via State
+		virtual void BuildScene() override;
 };
 
 #pragma endregion

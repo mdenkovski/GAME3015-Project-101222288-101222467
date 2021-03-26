@@ -45,6 +45,8 @@ bool TitleState::update(const GameTimer& gt)
 		mTextEffectTime = 0;
 	}
 
+	mSceneGraph->update(gt);
+
 	return true;
 }
 
@@ -97,7 +99,6 @@ void TitleState::BuildScene()
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
-	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mBackground->setPosition(25, 0, 12.5);
 	mBackground->setScale(500.0, 1.0, 420.0);
 	mBackground->setVelocity(0, 0, 0);
