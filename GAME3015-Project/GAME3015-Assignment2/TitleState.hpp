@@ -28,6 +28,7 @@ class TitleState : public State
 		float			mTextEffectTime;
 
 		SpriteNode* mBackground;
+		SpriteNode* mPrompt;
 
 		//Game* mGame;
 		SceneNode* mSceneGraph;

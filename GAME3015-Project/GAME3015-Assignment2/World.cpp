@@ -23,6 +23,14 @@ void World::update(const GameTimer& gt)
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph->onCommand(mCommandQueue.pop(), gt);
 
+	if (mBackground->getWorldPosition().z < -16)
+	{
+		mBackground->setPosition(0, 0, 16);
+	}
+	if (mBackground2->getWorldPosition().z < -16)
+	{
+		mBackground2->setPosition(0, 0, 16);
+	}
 #pragma region step 5
 
 	adaptPlayerVelocity();
@@ -82,9 +90,17 @@ void World::buildScene()
 	mBackground = backgroundSprite.get();
 	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mBackground->setPosition(0, 0, 0.0);
-	mBackground->setScale(200.0, 1.0, 200.0);
+	mBackground->setScale(16.0, 1.0, 16.0);
 	mBackground->setVelocity(0,0, -mScrollSpeed);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
+
+	std::unique_ptr<SpriteNode> backgroundSprite2(new SpriteNode(mGame));
+	mBackground2 = backgroundSprite2.get();
+	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
+	mBackground2->setPosition(0, 0, 16);
+	mBackground2->setScale(16.0, 1.0, 16.0);
+	mBackground2->setVelocity(0, 0, -mScrollSpeed);
+	mSceneGraph->attachChild(std::move(backgroundSprite2));
 
 	mSceneGraph->build();
 }

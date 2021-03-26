@@ -342,6 +342,17 @@ void Game::LoadTextures()
 		MenuTex->Resource, MenuTex->UploadHeap));
 
 	mTextures[MenuTex->Name] = std::move(MenuTex);
+
+	//MenuBackground
+	auto TitlePromptTex = std::make_unique<Texture>();
+	TitlePromptTex->Name = "TitlePrompt";
+	TitlePromptTex->Filename = L"../../Textures/Press_Any_Key.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), TitlePromptTex->Filename.c_str(),
+		TitlePromptTex->Resource, TitlePromptTex->UploadHeap));
+
+	mTextures[TitlePromptTex->Name] = std::move(TitlePromptTex);
+
 }
 
 void Game::BuildRootSignature()
@@ -394,7 +405,7 @@ void Game::BuildDescriptorHeaps()
 	// Create the SRV heap.
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 4;
+	srvHeapDesc.NumDescriptors = 5;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -408,6 +419,7 @@ void Game::BuildDescriptorHeaps()
 	auto RaptorTex = mTextures["RaptorTex"]->Resource;
 	auto DesertTex = mTextures["DesertTex"]->Resource;
 	auto MenuTex = mTextures["MenuTex"]->Resource;
+	auto TitlePromptTex = mTextures["TitlePrompt"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -448,6 +460,11 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuTex.Get(), &srvDesc, hDescriptor);
+
+	//Title Prompt Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = TitlePromptTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(TitlePromptTex.Get(), &srvDesc, hDescriptor);
 
 }
 
@@ -601,6 +618,17 @@ void Game::BuildMaterials()
 	TitleScreen->Roughness = 0.2f;
 
 	mMaterials["TitleScreen"] = std::move(TitleScreen);
+
+	// title prompt material
+	auto TitleScreenPrompt = std::make_unique<Material>();
+	TitleScreenPrompt->Name = "TitleScreenPrompt";
+	TitleScreenPrompt->MatCBIndex = 4;
+	TitleScreenPrompt->DiffuseSrvHeapIndex = 4;
+	TitleScreenPrompt->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	TitleScreenPrompt->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	TitleScreenPrompt->Roughness = 0.2f;
+
+	mMaterials["TitleScreenPrompt"] = std::move(TitleScreenPrompt);
 
 }
 

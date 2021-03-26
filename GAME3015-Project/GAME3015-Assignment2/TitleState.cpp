@@ -11,7 +11,7 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 , mShowText(true)
 , mTextEffectTime()
 , mBackground(nullptr)
-//, mGame(game)
+, mGame(game)
 , mSceneGraph(new SceneNode(game))
 
 {
@@ -45,8 +45,6 @@ bool TitleState::update(const GameTimer& gt)
 		mTextEffectTime = 0;
 	}
 
-	mSceneGraph->update(gt);
-
 	return true;
 }
 
@@ -58,7 +56,7 @@ bool TitleState::handleEvent()
 		{
 			////key pressed
 			requestStackPop();
-			requestStackPush(States::Menu);
+			requestStackPush(States::Game);
 			break;
 		}
 	}
@@ -99,10 +97,20 @@ void TitleState::BuildScene()
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
-	mBackground->setPosition(25, 0, 12.5);
-	mBackground->setScale(500.0, 1.0, 420.0);
+	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
+	mBackground->setPosition(0, 0, 0);
+	mBackground->setScale(12.0, 1.0, 8.0);
 	mBackground->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
+
+	std::unique_ptr<SpriteNode> TitlePrompt(new SpriteNode(mGame, "TitleScreenPrompt"));
+	mPrompt = TitlePrompt.get();
+	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
+	mPrompt->setPosition(0, 0.1, 0);
+	mPrompt->setScale(6, 1.0, 5);
+	mPrompt->setVelocity(0, 0, 0);
+	mSceneGraph->attachChild(std::move(TitlePrompt));
+
 
 	mSceneGraph->build();
 
