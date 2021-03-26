@@ -11,7 +11,6 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 , mShowText(true)
 , mTextEffectTime()
 , mBackground(nullptr)
-, mGame(game)
 , mSceneGraph(new SceneNode(game))
 
 {
