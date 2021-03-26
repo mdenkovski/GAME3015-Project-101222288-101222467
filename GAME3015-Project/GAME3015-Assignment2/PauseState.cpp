@@ -86,8 +86,8 @@ bool PauseState::handleEvent()
 
 	//return false;
 
-
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000 && !pauseStarted)
+	//p key
+	if (GetAsyncKeyState('O') & 0x8000 && !pauseStarted)
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStackPop();

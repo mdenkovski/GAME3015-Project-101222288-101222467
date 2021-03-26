@@ -108,6 +108,9 @@
     <ClInclude Include="ResourceIdentifiers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SettingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aircraft.cpp">
@@ -186,6 +189,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TitleState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

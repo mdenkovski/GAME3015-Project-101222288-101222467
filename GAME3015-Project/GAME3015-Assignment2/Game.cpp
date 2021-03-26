@@ -39,7 +39,7 @@ bool Game::Initialize()
 	BuildDescriptorHeaps();
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
-	//BuildMaterials();
+	BuildMaterials();
 
 	//mStateStack.applyPendingChanges();
 
@@ -269,6 +269,7 @@ void Game::UpdateMaterialCBs(const GameTimer& gt)
 		}
 	}
 }
+
 
 void Game::UpdateMainPassCB(const GameTimer& gt)
 {

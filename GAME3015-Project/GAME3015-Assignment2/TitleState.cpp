@@ -95,6 +95,7 @@ void TitleState::BuildScene()
 	//mGame->BuildShapeGeometry();
 	mGame->BuildMaterials();
 
+
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
 	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);

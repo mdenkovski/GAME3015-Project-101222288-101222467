@@ -32,7 +32,7 @@ bool GameState::handleEvent()
 	// Escape pressed, trigger the pause screen
 
 #pragma region step 1
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+	if (GetAsyncKeyState('P') & 0x8000)
 	{
 		requestStackPush(States::Pause);
 		isPaused = true;

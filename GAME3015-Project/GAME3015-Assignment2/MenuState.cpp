@@ -13,6 +13,9 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 , mOptionIndex(0)
 , mSceneGraph(new SceneNode(game))
 , mBackground(nullptr)
+, mMenuPlay(nullptr)
+, mMenuQuit(nullptr)
+, mMenuSelector (nullptr)
 {
 	BuildScene();
 
@@ -60,14 +63,14 @@ bool MenuState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
 	
-	//if (mOptionIndex == 0)
-	//{
-	//	mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
-	//}
-	//else
-	//{
-	//	mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
-	//}
+	if (mOptionIndex == 0)
+	{
+		mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
+	}
+	else
+	{
+		mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
+	}
 	return true;
 }
 
