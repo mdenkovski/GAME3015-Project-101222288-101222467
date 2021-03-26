@@ -57,9 +57,9 @@ class State
 		Context				getContext() const;
 
 		Game*				mGame;
-
-	private:
 		StateStack*			mStack;
+	private:
+		
 		Context				mContext;
 };
 
