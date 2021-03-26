@@ -33,6 +33,9 @@ class MenuState : public State
 
 		SceneNode* mSceneGraph;
 		SpriteNode* mBackground;
+		SpriteNode* mMenuPlay;
+		SpriteNode* mMenuQuit;
+		SpriteNode* mMenuSelector;
 
 		std::vector<SpriteNode*>	mOptions;
 		std::size_t				mOptionIndex;

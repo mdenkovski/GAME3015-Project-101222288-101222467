@@ -59,7 +59,15 @@ void MenuState::draw()
 bool MenuState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
-
+	
+	//if (mOptionIndex == 0)
+	//{
+	//	mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
+	//}
+	//else
+	//{
+	//	mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
+	//}
 	return true;
 }
 
@@ -175,6 +183,27 @@ void MenuState::BuildScene()
 	mBackground->setScale(12.0, 1.0, 8.5);
 	mBackground->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
+
+	std::unique_ptr<SpriteNode> menuPlaySprite(new SpriteNode(mGame, "MenuPlay"));
+	mMenuPlay = menuPlaySprite.get();
+	mMenuPlay->setPosition(0, 0.1, 0.0);
+	mMenuPlay->setScale(3.0, 1.0, 2.0);
+	mMenuPlay->setVelocity(0, 0, 0);
+	mSceneGraph->attachChild(std::move(menuPlaySprite));
+
+	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "MenuQuit"));
+	mMenuQuit = menuQuitSprite.get();
+	mMenuQuit->setPosition	(	0	, 0.1	, -1.0	);
+	mMenuQuit->setScale		(	3.0	, 1.0	, 2.0	);
+	mMenuQuit->setVelocity	(	0	, 0		, 0		);
+	mSceneGraph->attachChild(std::move(menuQuitSprite));
+
+	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(mGame, "MenuArrow"));
+	mMenuSelector = menuArrowSprite.get();
+	mMenuSelector->setPosition(-0.5, 0.1, 0.0);
+	mMenuSelector->setScale(0.5f, 1.0f, 0.5f);
+	mMenuSelector->setVelocity(0, 0, 0);
+	mSceneGraph->attachChild(std::move(menuArrowSprite));
 
 	mSceneGraph->build();
 

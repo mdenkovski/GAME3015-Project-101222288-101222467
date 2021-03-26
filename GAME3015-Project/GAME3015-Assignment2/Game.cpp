@@ -357,6 +357,37 @@ void Game::LoadTextures()
 
 	mTextures[TitlePromptTex->Name] = std::move(TitlePromptTex);
 
+	//MenuBackground
+	auto MenuPlayTex = std::make_unique<Texture>();
+	MenuPlayTex->Name = "MenuPlay";
+	MenuPlayTex->Filename = L"../../Textures/Play.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), MenuPlayTex->Filename.c_str(),
+		MenuPlayTex->Resource, MenuPlayTex->UploadHeap));
+
+	mTextures[MenuPlayTex->Name] = std::move(MenuPlayTex);
+
+
+	//MenuBackground
+	auto MenuQuitTex = std::make_unique<Texture>();
+	MenuQuitTex->Name = "MenuQuit";
+	MenuQuitTex->Filename = L"../../Textures/Quit.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), MenuQuitTex->Filename.c_str(),
+		MenuQuitTex->Resource, MenuQuitTex->UploadHeap));
+
+	mTextures[MenuQuitTex->Name] = std::move(MenuQuitTex);
+
+	//MenuBackground
+	auto MenuArrowTex = std::make_unique<Texture>();
+	MenuArrowTex->Name = "MenuArrow";
+	MenuArrowTex->Filename = L"../../Textures/Arrow.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), MenuArrowTex->Filename.c_str(),
+		MenuArrowTex->Resource, MenuArrowTex->UploadHeap));
+
+	mTextures[MenuArrowTex->Name] = std::move(MenuArrowTex);
+
 }
 
 void Game::BuildRootSignature()
@@ -409,7 +440,7 @@ void Game::BuildDescriptorHeaps()
 	// Create the SRV heap.
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 5;
+	srvHeapDesc.NumDescriptors = 8;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -424,6 +455,9 @@ void Game::BuildDescriptorHeaps()
 	auto DesertTex = mTextures["DesertTex"]->Resource;
 	auto MenuTex = mTextures["MenuTex"]->Resource;
 	auto TitlePromptTex = mTextures["TitlePrompt"]->Resource;
+	auto MenuPlayTex = mTextures["MenuPlay"]->Resource;
+	auto MenuQuitTex = mTextures["MenuQuit"]->Resource;
+	auto MenuArrowTex = mTextures["MenuArrow"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -469,6 +503,21 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = TitlePromptTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(TitlePromptTex.Get(), &srvDesc, hDescriptor);
+
+	//Title Prompt Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = MenuPlayTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(MenuPlayTex.Get(), &srvDesc, hDescriptor);
+
+	//Title Prompt Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = MenuQuitTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(MenuQuitTex.Get(), &srvDesc, hDescriptor);
+
+	//Title Prompt Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = MenuArrowTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(MenuArrowTex.Get(), &srvDesc, hDescriptor);
 
 }
 
@@ -633,6 +682,39 @@ void Game::BuildMaterials()
 	TitleScreenPrompt->Roughness = 0.2f;
 
 	mMaterials["TitleScreenPrompt"] = std::move(TitleScreenPrompt);
+
+	// title prompt material
+	auto MenuPlay = std::make_unique<Material>();
+	MenuPlay->Name = "MenuPlay";
+	MenuPlay->MatCBIndex = 5;
+	MenuPlay->DiffuseSrvHeapIndex = 5;
+	MenuPlay->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	MenuPlay->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	MenuPlay->Roughness = 0.2f;
+
+	mMaterials["MenuPlay"] = std::move(MenuPlay);
+
+	// title prompt material
+	auto MenuQuit = std::make_unique<Material>();
+	MenuQuit->Name = "MenuQuit";
+	MenuQuit->MatCBIndex = 6;
+	MenuQuit->DiffuseSrvHeapIndex = 6;
+	MenuQuit->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	MenuQuit->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	MenuQuit->Roughness = 0.2f;
+
+	mMaterials["MenuQuit"] = std::move(MenuQuit);
+
+	// title prompt material
+	auto MenuArrow = std::make_unique<Material>();
+	MenuArrow->Name = "MenuArrow";
+	MenuArrow->MatCBIndex = 7;
+	MenuArrow->DiffuseSrvHeapIndex = 7;
+	MenuArrow->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	MenuArrow->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	MenuArrow->Roughness = 0.2f;
+
+	mMaterials["MenuArrow"] = std::move(MenuArrow);
 
 }
 
