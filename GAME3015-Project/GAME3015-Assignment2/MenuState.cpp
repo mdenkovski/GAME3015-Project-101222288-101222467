@@ -16,7 +16,8 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 {
 	BuildScene();
 
-
+	mOptions.push_back(new SpriteNode(mGame));
+	mOptions.push_back(new SpriteNode(mGame));
 
 	//sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	//sf::Font& font = context.fonts->get(Fonts::Main);

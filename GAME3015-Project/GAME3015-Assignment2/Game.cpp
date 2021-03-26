@@ -107,6 +107,10 @@ void Game::Update(const GameTimer& gt)
 	UpdateMaterialCBs(gt);
 	UpdateMainPassCB(gt);
 
+	if (mStateStack.isEmpty())
+	{
+		exit(0);
+	}
 }
 
 void Game::Draw(const GameTimer& gt)
