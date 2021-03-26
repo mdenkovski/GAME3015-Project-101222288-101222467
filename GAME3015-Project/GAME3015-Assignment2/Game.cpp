@@ -181,6 +181,7 @@ void Game::registerStates()
 	mStateStack.registerState<MenuState>(States::Menu, this);
 	mStateStack.registerState<GameState>(States::Game, this);
 	mStateStack.registerState<PauseState>(States::Pause, this);
+	//mStateStack.registerState<SettingsState>(States::Settings, this);
 }
 
 void Game::OnMouseDown(WPARAM btnState, int x, int y)
