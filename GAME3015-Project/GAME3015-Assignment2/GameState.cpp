@@ -58,12 +58,12 @@ void GameState::BuildScene()
 	// so we have to query this information.
 	//mGame->mCbvSrvDescriptorSize = mGame->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-	/*mGame->LoadTextures();
-	mGame->BuildRootSignature();
-	mGame->BuildDescriptorHeaps();
-	mGame->BuildShadersAndInputLayout();
-	mGame->BuildShapeGeometry();
-	mGame->BuildMaterials();*/
+	//mGame->LoadTextures();
+	//mGame->BuildRootSignature();
+	//mGame->BuildDescriptorHeaps();
+	//mGame->BuildShadersAndInputLayout();
+	//mGame->BuildShapeGeometry();
+	mGame->BuildMaterials();
 
 
 	mWorld->buildScene();
@@ -85,7 +85,7 @@ void GameState::BuildScene()
 	//ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
 	//mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
-	//// Wait until initialization is complete.
+	// Wait until initialization is complete.
 	//mGame->FlushCommandQueueGame();
 
 

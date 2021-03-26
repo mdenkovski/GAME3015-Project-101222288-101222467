@@ -93,7 +93,7 @@ void TitleState::BuildScene()
 	//mGame->BuildDescriptorHeaps();
 	//mGame->BuildShadersAndInputLayout();
 	//mGame->BuildShapeGeometry();
-	//mGame->BuildMaterials();
+	mGame->BuildMaterials();
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
@@ -123,7 +123,7 @@ void TitleState::BuildScene()
 	//ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
 	//mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
-	////// Wait until initialization is complete.
+	//// Wait until initialization is complete.
 	//mGame->FlushCommandQueueGame();
 
 

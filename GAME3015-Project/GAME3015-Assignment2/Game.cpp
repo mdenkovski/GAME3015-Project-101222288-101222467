@@ -39,12 +39,12 @@ bool Game::Initialize()
 	BuildDescriptorHeaps();
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
-	BuildMaterials();
+	//BuildMaterials();
 
 	//mStateStack.applyPendingChanges();
 
 
-	BuildRenderItems();
+	//BuildRenderItems();
 	//BuildFrameResources();
 	BuildPSOs();
 	mPlayer = Player();

@@ -105,6 +105,10 @@ public:
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
 
+
+
+
+
 	ID3D12GraphicsCommandList* GetCommandList() { return mCommandList.Get(); }
 	ID3D12CommandQueue* GetCommandQueue() { return mCommandQueue.Get(); }
 
