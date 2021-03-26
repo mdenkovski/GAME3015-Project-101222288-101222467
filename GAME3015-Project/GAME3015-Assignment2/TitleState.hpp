@@ -29,7 +29,7 @@ class TitleState : public State
 
 		SpriteNode* mBackground;
 
-		Game* mGame;
+		//Game* mGame;
 		SceneNode* mSceneGraph;
 
 		// Inherited via State

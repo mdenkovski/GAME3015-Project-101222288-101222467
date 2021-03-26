@@ -11,7 +11,7 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 , mShowText(true)
 , mTextEffectTime()
 , mBackground(nullptr)
-, mGame(game)
+//, mGame(game)
 , mSceneGraph(new SceneNode(game))
 
 {
@@ -56,7 +56,7 @@ bool TitleState::handleEvent()
 		{
 			////key pressed
 			requestStackPop();
-			requestStackPush(States::Game);
+			requestStackPush(States::Menu);
 			break;
 		}
 	}

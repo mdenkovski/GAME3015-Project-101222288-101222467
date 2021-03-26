@@ -2,6 +2,8 @@
 #define BOOK_MENUSTATE_HPP
 
 #include "State.hpp"
+#include "SpriteNode.h"
+#include "../../Common/d3dApp.h"
 
 //#include <SFML/Graphics/Sprite.hpp>
 //#include <SFML/Graphics/Text.hpp>
@@ -10,7 +12,7 @@
 class MenuState : public State
 {
 	public:
-								MenuState(StateStack& stack, Context context);
+								MenuState(StateStack& stack, Context context, Game* game);
 
 		virtual void			draw();
 		virtual bool			update(const GameTimer& gt);
@@ -28,10 +30,15 @@ class MenuState : public State
 
 
 	private:
-		sf::Sprite				mBackgroundSprite;
 
-		std::vector<sf::Text>	mOptions;
+		SceneNode* mSceneGraph;
+		SpriteNode* mBackground;
+
+		std::vector<SpriteNode*>	mOptions;
 		std::size_t				mOptionIndex;
+
+		// Inherited via State
+		virtual void BuildScene() override;
 };
 
 #endif // BOOK_MENUSTATE_HPP
