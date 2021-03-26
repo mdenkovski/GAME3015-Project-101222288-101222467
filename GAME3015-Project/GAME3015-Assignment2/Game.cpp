@@ -41,9 +41,7 @@ bool Game::Initialize()
 	BuildShapeGeometry();
 	BuildMaterials();
 
-	registerStates();
-	mStateStack.pushState(States::Title);
-	mStateStack.applyPendingChanges();
+	//mStateStack.applyPendingChanges();
 
 
 	BuildRenderItems();
@@ -63,6 +61,8 @@ bool Game::Initialize()
 	// Wait until initialization is complete.
 	FlushCommandQueue();
 
+	registerStates();
+	mStateStack.pushState(States::Title);
 
 	return true;
 }

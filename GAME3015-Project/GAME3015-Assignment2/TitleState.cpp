@@ -77,6 +77,23 @@ bool TitleState::handleEvent()
 
 void TitleState::BuildScene()
 {
+	mGame->mAllRitems.clear();
+	mGame->mOpaqueRitems.clear();
+
+	// Reset the command list to prep for initialization commands.
+	ThrowIfFailed(mGame->GetCommandList()->Reset(mGame->GetCommandAllocator(), nullptr));
+
+	// Get the increment size of a descriptor in this heap type.  This is hardware specific, 
+	// so we have to query this information.
+	mGame->mCbvSrvDescriptorSize = mGame->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+	//mGame->LoadTextures();
+	//mGame->BuildRootSignature();
+	//mGame->BuildDescriptorHeaps();
+	//mGame->BuildShadersAndInputLayout();
+	//mGame->BuildShapeGeometry();
+	//mGame->BuildMaterials();
+
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
 	mBackground = backgroundSprite.get();
 	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
@@ -86,4 +103,29 @@ void TitleState::BuildScene()
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
 	mSceneGraph->build();
+
+
+	for (auto& e : mGame->mAllRitems)
+		mGame->mOpaqueRitems.push_back(e.get());
+
+	//mGame->BuildRenderItems();
+	//mGame->BuildFrameResources();
+	//mGame->BuildPSOs();
+	
+
+
+
+
+
+	// Execute the initialization commands.
+	ThrowIfFailed(mGame->GetCommandList()->Close());
+	ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
+	mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
+
+	// Wait until initialization is complete.
+	mGame->FlushCommandQueueGame();
+
+
+
+	
 }

@@ -21,7 +21,7 @@ public:
 	~Game();
 
 	virtual bool Initialize()override;
-private:
+public:
 	virtual void OnResize()override;
 	virtual void Update(const GameTimer& gt)override;
 	virtual void Draw(const GameTimer& gt)override;
@@ -104,5 +104,14 @@ public:
 	std::vector<std::unique_ptr<RenderItem>>& getRenderItems() { return mAllRitems; }
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
+
+	ID3D12GraphicsCommandList* GetCommandList() { return mCommandList.Get(); }
+	ID3D12CommandQueue* GetCommandQueue() { return mCommandQueue.Get(); }
+
+	void FlushCommandQueueGame() { FlushCommandQueue(); }
+
+	ID3D12CommandAllocator* GetCommandAllocator() { return mDirectCmdListAlloc.Get(); }
+
+	ID3D12Device* GetD3DDevice() { return md3dDevice.Get(); }
 
 };
