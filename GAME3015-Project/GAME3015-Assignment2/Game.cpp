@@ -45,7 +45,7 @@ bool Game::Initialize()
 
 
 	BuildRenderItems();
-	BuildFrameResources();
+	//BuildFrameResources();
 	BuildPSOs();
 	mPlayer = Player();
 	
@@ -82,8 +82,8 @@ void Game::Update(const GameTimer& gt)
 {
 	//ProcessInput();
 	//mWorld.update(gt);
-	mStateStack.update(gt);
 
+	mStateStack.update(gt);
 
 	UpdateCamera(gt);
 
@@ -106,6 +106,7 @@ void Game::Update(const GameTimer& gt)
 	UpdateObjectCBs(gt);
 	UpdateMaterialCBs(gt);
 	UpdateMainPassCB(gt);
+
 }
 
 void Game::Draw(const GameTimer& gt)
@@ -605,12 +606,12 @@ void Game::BuildMaterials()
 
 void Game::BuildRenderItems()
 {
-	mWorld.buildScene();
+	//mWorld.buildScene();
 	
 
-	// All the render items are opaque.
-	for (auto& e : mAllRitems)
-		mOpaqueRitems.push_back(e.get());
+	//// All the render items are opaque.
+	//for (auto& e : mAllRitems)
+	//	mOpaqueRitems.push_back(e.get());
 }
 
 void Game::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)

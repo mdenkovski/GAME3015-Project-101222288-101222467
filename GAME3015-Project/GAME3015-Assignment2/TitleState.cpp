@@ -79,13 +79,14 @@ void TitleState::BuildScene()
 {
 	mGame->mAllRitems.clear();
 	mGame->mOpaqueRitems.clear();
+	mGame->mFrameResources.clear();
 
-	// Reset the command list to prep for initialization commands.
-	ThrowIfFailed(mGame->GetCommandList()->Reset(mGame->GetCommandAllocator(), nullptr));
+	//// Reset the command list to prep for initialization commands.
+	//ThrowIfFailed(mGame->GetCommandList()->Reset(mGame->GetCommandAllocator(), nullptr));
 
 	// Get the increment size of a descriptor in this heap type.  This is hardware specific, 
 	// so we have to query this information.
-	mGame->mCbvSrvDescriptorSize = mGame->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	//mGame->mCbvSrvDescriptorSize = mGame->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	//mGame->LoadTextures();
 	//mGame->BuildRootSignature();
@@ -109,7 +110,7 @@ void TitleState::BuildScene()
 		mGame->mOpaqueRitems.push_back(e.get());
 
 	//mGame->BuildRenderItems();
-	//mGame->BuildFrameResources();
+	mGame->BuildFrameResources();
 	//mGame->BuildPSOs();
 	
 
@@ -117,13 +118,13 @@ void TitleState::BuildScene()
 
 
 
-	// Execute the initialization commands.
-	ThrowIfFailed(mGame->GetCommandList()->Close());
-	ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
-	mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
+	////// Execute the initialization commands.
+	//ThrowIfFailed(mGame->GetCommandList()->Close());
+	//ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
+	//mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
-	// Wait until initialization is complete.
-	mGame->FlushCommandQueueGame();
+	////// Wait until initialization is complete.
+	//mGame->FlushCommandQueueGame();
 
 
 
