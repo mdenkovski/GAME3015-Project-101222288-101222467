@@ -93,6 +93,8 @@ int D3DApp::Run()
 				CalculateFrameStats();
 				Update(mTimer);	
                 Draw(mTimer);
+				
+
 			}
 			else
 			{
