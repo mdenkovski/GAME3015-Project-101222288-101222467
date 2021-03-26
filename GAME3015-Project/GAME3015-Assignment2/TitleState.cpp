@@ -43,6 +43,7 @@ bool TitleState::update(const GameTimer& gt)
 		//mShowText = !mShowText;
 		mTextEffectTime = 0;
 	}
+	mSceneGraph->update(gt);
 
 	return true;
 }
@@ -55,7 +56,7 @@ bool TitleState::handleEvent()
 		{
 			////key pressed
 			requestStackPop();
-			requestStackPush(States::Game);
+			requestStackPush(States::Menu);
 			break;
 		}
 	}
@@ -98,7 +99,7 @@ void TitleState::BuildScene()
 	mBackground = backgroundSprite.get();
 	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mBackground->setPosition(0, 0, 0);
-	mBackground->setScale(12.0, 1.0, 8.0);
+	mBackground->setScale(12.0, 1.0, 8.5);
 	mBackground->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
