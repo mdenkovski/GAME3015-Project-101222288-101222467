@@ -24,7 +24,7 @@ class GameState : public State
 
 
 	private:
-		
+		bool isPaused;
 		World*				mWorld;
 		Player&				mPlayer;
 

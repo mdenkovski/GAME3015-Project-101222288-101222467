@@ -5,6 +5,7 @@ GameState::GameState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
 , mWorld(&(mGame->mWorld))
 , mPlayer(*context.player)
+, isPaused(false)
 {
 	BuildScene();
 }
@@ -16,6 +17,8 @@ void GameState::draw()
 
 bool GameState::update(const GameTimer& gt)
 {
+	if (isPaused) return false;
+
 	ProcessInput();
 	mWorld->update(gt);
 
@@ -25,13 +28,14 @@ bool GameState::update(const GameTimer& gt)
 
 bool GameState::handleEvent()
 {
-
+	if (isPaused) return false;
 	// Escape pressed, trigger the pause screen
 
 #pragma region step 1
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 	{
 		requestStackPush(States::Pause);
+		isPaused = true;
 	}
 #pragma endregion
 	return true;
@@ -51,18 +55,6 @@ void GameState::BuildScene()
 	mGame->mOpaqueRitems.clear();
 	mGame->mFrameResources.clear();
 
-	//// Reset the command list to prep for initialization commands.
-	//ThrowIfFailed(mGame->GetCommandList()->Reset(mGame->GetCommandAllocator(), nullptr));
-
-	// Get the increment size of a descriptor in this heap type.  This is hardware specific, 
-	// so we have to query this information.
-	//mGame->mCbvSrvDescriptorSize = mGame->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	//mGame->LoadTextures();
-	//mGame->BuildRootSignature();
-	//mGame->BuildDescriptorHeaps();
-	//mGame->BuildShadersAndInputLayout();
-	//mGame->BuildShapeGeometry();
 	mGame->BuildMaterials();
 
 
@@ -71,22 +63,9 @@ void GameState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildRenderItems();
 	mGame->BuildFrameResources();
-	//mGame->BuildPSOs();
 
 
-
-
-
-
-	//// Execute the initialization commands.
-	//ThrowIfFailed(mGame->GetCommandList()->Close());
-	//ID3D12CommandList* cmdsLists[] = { mGame->GetCommandList() };
-	//mGame->GetCommandQueue()->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-	// Wait until initialization is complete.
-	//mGame->FlushCommandQueueGame();
 
 
 }

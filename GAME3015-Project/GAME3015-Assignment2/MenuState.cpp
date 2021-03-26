@@ -142,9 +142,6 @@ bool MenuState::handleEvent()
 		return false;
 	}
 
-
-	
-
 	return true;
 }
 
