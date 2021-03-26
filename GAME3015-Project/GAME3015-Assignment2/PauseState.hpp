@@ -12,6 +12,7 @@ class PauseState : public State
 {
 	public:
 							PauseState(StateStack& stack, Context context, Game* game);
+							~PauseState();
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
@@ -23,7 +24,7 @@ class PauseState : public State
 		SpriteNode* mBackground;
 		SpriteNode* mPausedText;
 		SpriteNode* mInstructionText;
-
+		bool pauseStarted;
 		// Inherited via State
 		virtual void BuildScene() override;
 };

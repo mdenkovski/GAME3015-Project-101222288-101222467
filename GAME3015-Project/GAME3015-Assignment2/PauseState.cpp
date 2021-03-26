@@ -33,6 +33,15 @@ PauseState::PauseState(StateStack& stack, Context context, Game* game)
 	BuildScene();
 }
 
+PauseState::~PauseState()
+{
+	/*mGame->mAllRitems.pop_back();
+	mGame->mOpaqueRitems.pop_back();
+
+	mGame->mFrameResources.clear();
+	mGame->BuildFrameResources();*/
+}
+
 void PauseState::draw()
 {
 	mSceneGraph->draw();
@@ -81,8 +90,6 @@ bool PauseState::handleEvent()
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStackPop();
-
-
 	}
 	else if (GetAsyncKeyState(VK_BACK) & 0x8000)
 	{
@@ -122,7 +129,7 @@ void PauseState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildFrameResources();
+	mGame->BuildFrameResources();
 }
 
 #pragma endregion

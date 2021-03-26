@@ -21,6 +21,12 @@ void StateStack::update(const GameTimer& gt)
 		if (!(*itr)->update(gt))
 			break;
 	}
+	/*if (!mStack.empty())
+	{
+		auto itr = mStack.end();
+		(*itr)->update(gt);
+
+	}*/
 
 	applyPendingChanges();
 }
@@ -40,6 +46,13 @@ void StateStack::handleEvent()
 		if (!(*itr)->handleEvent())
 			break;
 	}
+
+	/*if (!mStack.empty())
+	{
+		auto itr = mStack.end();
+		(*itr)->handleEvent();
+
+	}*/
 
 	applyPendingChanges();
 }
