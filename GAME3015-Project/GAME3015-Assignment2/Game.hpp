@@ -4,8 +4,8 @@
 #include "StateIdentifiers.hpp"
 #include "TitleState.hpp"
 #include "GameState.hpp"
-//#include "MenuState.hpp"
-//#include "PauseState.hpp"
+#include "MenuState.hpp"
+#include "PauseState.hpp"
 //#include "LoadingState.hpp"
 #include "StateStack.hpp"
 
