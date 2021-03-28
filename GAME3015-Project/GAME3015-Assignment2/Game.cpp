@@ -668,6 +668,14 @@ void Game::BuildFrameResources()
 			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));
 	}
 }
+void Game::BuildFrameResources(int numRenderItems)
+{
+	for (int i = 0; i < gNumFrameResources; ++i)
+	{
+		mFrameResources.push_back(std::make_unique<FrameResource>(md3dDevice.Get(),
+			1, (UINT)numRenderItems, (UINT)mMaterials.size()));
+	}
+}
 //step13
 void Game::BuildMaterials()
 {
