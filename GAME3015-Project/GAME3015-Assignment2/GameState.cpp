@@ -15,7 +15,7 @@ GameState::GameState(StateStack& stack, Context context, Game* game)
 
 void GameState::draw()
 {
-	//mWorld->draw();
+	mWorld->draw();
 	
 }
 
@@ -58,10 +58,11 @@ void GameState::BuildScene()
 	mWorld->buildScene();
 
 	//pause stuff
+	
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "PauseDisplay"));
 	mPauseBackground = backgroundSprite.get();
-	mPauseBackground->setPosition(25, 0.15, 12.5);
-	mPauseBackground->setScale(12.0, 1.0, 8.5);
+	mPauseBackground->setPosition(0, 0.15, 0);
+	mPauseBackground->setScale(6, 1.0, 6);
 	mPauseBackground->setVelocity(0, 0, 0);
 	mPauseSceneGraph->attachChild(std::move(backgroundSprite));
 

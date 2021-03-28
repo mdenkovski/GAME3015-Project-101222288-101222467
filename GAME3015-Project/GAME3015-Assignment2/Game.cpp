@@ -435,6 +435,9 @@ void Game::LoadTextures()
 
 	mTextures[SettingReturnTex->Name] = std::move(SettingReturnTex);
 
+
+	
+
 	//PAUSE STATE
 	auto PauseDisplayTex = std::make_unique<Texture>();
 	PauseDisplayTex->Name = "PauseDisplay";
@@ -595,6 +598,11 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuSettingTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuSettingTex.Get(), &srvDesc, hDescriptor);
+
+	//Setting Return Texture Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = SettingReturnTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(SettingReturnTex.Get(), &srvDesc, hDescriptor);
 
 	//Pause DisplayDescriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
@@ -861,6 +869,7 @@ void Game::BuildMaterials()
 
 	mMaterials["PauseDisplay"] = std::move(PauseDisplay);
 
+	
 }
 
 void Game::BuildRenderItems()
