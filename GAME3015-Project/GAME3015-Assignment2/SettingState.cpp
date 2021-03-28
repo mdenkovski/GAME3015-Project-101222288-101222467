@@ -148,7 +148,7 @@ void SettingState::BuildScene()
 	mSceneGraph->attachChild(std::move(mSettingARROWSprite));
 	mOptions.push_back(mSettingARROW);
 
-	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "MenuQuit"));
+	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "SettingReturn"));
 	mMenuQuit = menuQuitSprite.get();
 	mMenuQuit->setPosition(0, 0.1, -1.0);
 	mMenuQuit->setScale(3.0, 1.0, 2.0);
