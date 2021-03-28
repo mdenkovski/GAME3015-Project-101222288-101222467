@@ -26,13 +26,13 @@ bool GameState::update(const GameTimer& gt)
 	return true;
 }
 
-bool GameState::handleEvent()
+bool GameState::handleEvent(WPARAM btnState)
 {
 	if (isPaused) return false;
 	// Escape pressed, trigger the pause screen
 
 #pragma region step 1
-	if (GetAsyncKeyState('P') & 0x8000)
+	if (btnState == 'P')
 	{
 		requestStackPush(States::Pause);
 		isPaused = true;

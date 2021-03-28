@@ -11,7 +11,7 @@ public:
 	SettingState(StateStack& stack, Context context, Game* game);
 	virtual void			draw();
 	virtual bool			update(const GameTimer& gt);
-	virtual bool			handleEvent();
+	virtual bool			handleEvent(WPARAM btnState);
 
 	void					updateOptionText();
 
@@ -36,7 +36,7 @@ private:
 	std::vector<SpriteNode*>	mOptions;
 	std::size_t				mOptionIndex;
 	int mTotalNumOptions;
-	std::size_t				mOptionIndex;
+	//std::size_t				mOptionIndex;
 
 	// Inherited via State
 	virtual void BuildScene() override;

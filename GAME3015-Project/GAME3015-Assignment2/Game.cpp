@@ -202,6 +202,11 @@ void Game::OnMouseMove(WPARAM btnState, int x, int y)
 	
 }
 
+void Game::OnKeyboardInput(WPARAM btnState)
+{
+	mStateStack.handleEvent(btnState);
+}
+
 //void Game::ProcessInput()
 //{
 //	CommandQueue& commands = mWorld.getCommandQueue();

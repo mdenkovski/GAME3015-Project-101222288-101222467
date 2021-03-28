@@ -16,7 +16,7 @@ class PauseState : public State
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
-		virtual bool		handleEvent();
+		virtual bool		handleEvent(WPARAM btnState);
 
 
 	private:
@@ -24,7 +24,6 @@ class PauseState : public State
 		SpriteNode* mBackground;
 		SpriteNode* mPausedText;
 		SpriteNode* mInstructionText;
-		bool pauseStarted;
 		// Inherited via State
 		virtual void BuildScene() override;
 };

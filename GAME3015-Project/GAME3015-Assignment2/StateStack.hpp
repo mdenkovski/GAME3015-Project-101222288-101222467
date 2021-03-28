@@ -43,7 +43,7 @@ class StateStack //: private sf::NonCopyable
 
 		void				update(const GameTimer& gt);
 		void				draw();
-		void				handleEvent();
+		void				handleEvent(WPARAM btnState);
 
 		void				pushState(States::ID stateID);
 		void				popState();

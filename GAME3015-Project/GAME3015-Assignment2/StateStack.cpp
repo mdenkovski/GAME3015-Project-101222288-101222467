@@ -13,7 +13,7 @@ StateStack::StateStack(State::Context context)
 
 void StateStack::update(const GameTimer& gt)
 {
-	handleEvent();
+	
 
 	// Iterate from top to bottom, stop as soon as update() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
@@ -38,12 +38,12 @@ void StateStack::draw()
 		state->draw();
 }
 
-void StateStack::handleEvent()
+void StateStack::handleEvent(WPARAM btnState)
 {
 	// Iterate from top to bottom, stop as soon as handleEvent() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
-		if (!(*itr)->handleEvent())
+		if (!(*itr)->handleEvent(btnState))
 			break;
 	}
 
