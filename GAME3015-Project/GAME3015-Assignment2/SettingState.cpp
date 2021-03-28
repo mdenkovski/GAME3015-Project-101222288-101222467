@@ -21,30 +21,7 @@ SettingState::SettingState(StateStack& stack, Context context, Game* game)
 {
 	BuildScene();
 
-	/*mOptions.push_back(new SpriteNode(mGame));
-	mOptions.push_back(new SpriteNode(mGame));*/
 
-	//sf::Texture& texture = context.textures->get(Textures::TitleScreen);
-	//sf::Font& font = context.fonts->get(Fonts::Main);
-
-	//mBackgroundSprite.setTexture(texture);
-	//
-	//// A simple menu demonstration
-	//sf::Text playOption;
-	//playOption.setFont(font);
-	//playOption.setString("Play");
-	//centerOrigin(playOption);
-	//playOption.setPosition(context.window->getView().getSize() / 2.f);
-	//mOptions.push_back(playOption);
-
-	//sf::Text exitOption;
-	//exitOption.setFont(font);
-	//exitOption.setString("Exit");
-	//centerOrigin(exitOption);
-	//exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
-	//mOptions.push_back(exitOption);
-
-	//updateOptionText();
 }
 
 void SettingState::draw()
@@ -52,39 +29,25 @@ void SettingState::draw()
 
 	mSceneGraph->draw();
 
-	/*sf::RenderWindow& window = *getContext().window;
-
-	window.setView(window.getDefaultView());
-	window.draw(mBackgroundSprite);
-
-	for(const sf::Text& text: mOptions)
-		window.draw(text);*/
+	
 }
 
 bool SettingState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
 
-	float x = mOptions[mOptionIndex]->getWorldPosition().x;
-	float y = mOptions[mOptionIndex]->getWorldPosition().y - 0.6;
+	float x = mOptions[mOptionIndex]->getWorldPosition().x - 1.6;
+	float y = mOptions[mOptionIndex]->getWorldPosition().y;
 	float z = mOptions[mOptionIndex]->getWorldPosition().z;
 
 	mMenuSelector->setPosition(x, y, z);
 
-	/*if (mOptionIndex == 0)
-	{
-		mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
-	}
-	else
-	{
-		mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
-	}*/
+	
 	return true;
 }
 
 bool SettingState::handleEvent(WPARAM btnState)
 {
-	
 
 	if (btnState == VK_RETURN )
 	{
@@ -95,6 +58,9 @@ bool SettingState::handleEvent(WPARAM btnState)
 			mGame->mPlayer.assignKey(Player::Action::MoveLeft, 'A');
 			mGame->mPlayer.assignKey(Player::Action::MoveRight, 'D');
 			mGame->mPlayer.resetKeyFlags();
+
+			requestStackPop();
+			requestStackPush(States::Menu);
 		}
 		else if (mOptionIndex == ARROWKEYS)
 		{ // Set controls to this
@@ -103,6 +69,9 @@ bool SettingState::handleEvent(WPARAM btnState)
 			mGame->mPlayer.assignKey(Player::Action::MoveLeft, VK_LEFT);
 			mGame->mPlayer.assignKey(Player::Action::MoveRight, VK_RIGHT);
 			mGame->mPlayer.resetKeyFlags();
+
+			requestStackPop();
+			requestStackPush(States::Menu);
 		}
 		else if (mOptionIndex == Return) 
 		{
@@ -143,12 +112,7 @@ void SettingState::updateOptionText()
 	if (mOptions.empty())
 		return;
 
-	//// White all texts
-	//for(sf::Text& text : mOptions)
-	//	text.setFillColor(sf::Color::White);
-
-	//// Red the selected text
-	//mOptions[mOptionIndex].setFillColor(sf::Color::Red);
+	
 }
 
 void SettingState::BuildScene()
@@ -176,7 +140,7 @@ void SettingState::BuildScene()
 	mSceneGraph->attachChild(std::move(mSettingWASDSprite));
 	mOptions.push_back(mSettingWASD);
 
-	std::unique_ptr<SpriteNode> mSettingARROWSprite(new SpriteNode(mGame, "SettingARROW"));
+	std::unique_ptr<SpriteNode> mSettingARROWSprite(new SpriteNode(mGame, "SettingArrow"));
 	mSettingARROW = mSettingARROWSprite.get();
 	mSettingARROW->setPosition(0, 0.1, 0.0);
 	mSettingARROW->setScale(3.0, 1.0, 2.0);
