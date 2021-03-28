@@ -164,3 +164,8 @@ void SceneNode::move(float x, float y, float z)
 	mWorldPosition.y += y;
 	mWorldPosition.z += z;
 }
+
+void SceneNode::ClearChildren()
+{
+	mChildren.clear();
+}

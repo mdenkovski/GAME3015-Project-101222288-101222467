@@ -50,6 +50,7 @@ class StateStack //: private sf::NonCopyable
 		void				clearStates();
 
 		bool				isEmpty() const;
+		std::vector<State::Ptr>*		 GetStateStack();
 
 
 	private:

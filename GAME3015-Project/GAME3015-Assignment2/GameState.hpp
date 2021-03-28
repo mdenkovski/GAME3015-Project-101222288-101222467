@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "State.hpp"
 #include "World.hpp"
+#include "SpriteNode.h"
 //#include "../../Common/d3dApp.h"
 
 //#include <SFML/Graphics/Sprite.hpp>
@@ -24,10 +25,15 @@ class GameState : public State
 
 
 	private:
-		bool isPaused;
+		//bool isPaused;
 		World*				mWorld;
 		Player&				mPlayer;
-
+	public:
+		SceneNode* mPauseSceneGraph;
+		SpriteNode* mPauseBackground;
+		SpriteNode* mPausedText;
+		SpriteNode* mPauseInstructionText;
+private:
 		// Inherited via State
 		virtual void BuildScene() override;
 };

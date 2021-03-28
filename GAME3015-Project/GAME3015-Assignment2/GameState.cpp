@@ -5,7 +5,10 @@ GameState::GameState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
 , mWorld(&(mGame->mWorld))
 , mPlayer(*context.player)
-, isPaused(false)
+, mPauseBackground(nullptr)
+, mPausedText(nullptr)
+, mPauseInstructionText(nullptr)
+, mPauseSceneGraph(new SceneNode(game))
 {
 	BuildScene();
 }
@@ -13,33 +16,23 @@ GameState::GameState(StateStack& stack, Context context, Game* game)
 void GameState::draw()
 {
 	mWorld->draw();
+	
 }
 
 bool GameState::update(const GameTimer& gt)
 {
-	if (isPaused) return false;
-
 	ProcessInput();
 	mWorld->update(gt);
-
 
 	return true;
 }
 
 bool GameState::handleEvent(WPARAM btnState)
 {
-	if (isPaused) return false;
-	// Escape pressed, trigger the pause screen
-
 #pragma region step 1
 	if (btnState == 'P')
 	{
 		requestStackPush(States::Pause);
-		isPaused = true;
-	}
-	else
-	{
-		isPaused = false;
 	}
 #pragma endregion
 	return true;
@@ -64,6 +57,19 @@ void GameState::BuildScene()
 
 	mWorld->buildScene();
 
+	//pause stuff
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
+	mPauseBackground = backgroundSprite.get();
+	mPauseBackground->setPosition(25, 0.1, 12.5);
+	mPauseBackground->setScale(500.0, 1.0, 420.0);
+	mPauseBackground->setVelocity(0, 0, 0);
+	mPauseSceneGraph->attachChild(std::move(backgroundSprite));
+
+
+
+
+	mPauseSceneGraph->build();
+	//pause stuff end
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 

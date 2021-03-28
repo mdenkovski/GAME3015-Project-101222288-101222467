@@ -82,6 +82,8 @@ public:
 	virtual unsigned int	getCategory() const;
 
 	void					move(float x, float y, float z);
+
+	void ClearChildren();
 private:
 	virtual void			updateCurrent(const GameTimer& gt);
 	void					updateChildren(const GameTimer& gt);
@@ -90,6 +92,7 @@ private:
 	void					drawChildren() const;
 	virtual void			buildCurrent();
 	void					buildChildren();
+
 
 protected:
 	Game*					game;

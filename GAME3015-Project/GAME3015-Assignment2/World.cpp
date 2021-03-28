@@ -65,6 +65,8 @@ CommandQueue& World::getCommandQueue()
 
 void World::buildScene()
 {
+	mSceneGraph->ClearChildren();
+
 	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mGame));
 	mPlayerAircraft = player.get();
 	mPlayerAircraft->setPosition(0.0f, 0.1f, 0.0f);
