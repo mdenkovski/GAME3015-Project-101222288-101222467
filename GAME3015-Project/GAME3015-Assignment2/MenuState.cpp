@@ -64,7 +64,7 @@ bool MenuState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
 
-	float x = mOptions[mOptionIndex]->getWorldPosition().x - 0.6;
+	float x = mOptions[mOptionIndex]->getWorldPosition().x - 0.9;
 	float y = mOptions[mOptionIndex]->getWorldPosition().y;
 	float z = mOptions[mOptionIndex]->getWorldPosition().z;
 
@@ -167,7 +167,7 @@ void MenuState::BuildScene()
 	mSceneGraph->attachChild(std::move(menuPlaySprite));
 	mOptions.push_back(mMenuPlay);
 
-	std::unique_ptr<SpriteNode> menuSettingSprite(new SpriteNode(mGame, "MenuSetting"));
+	std::unique_ptr<SpriteNode> menuSettingSprite(new SpriteNode(mGame, "MenuSettingTex"));
 	mMenuSetting = menuSettingSprite.get();
 	mMenuSetting->setPosition(0, 0.1, 0.0);
 	mMenuSetting->setScale(3.0, 1.0, 2.0);

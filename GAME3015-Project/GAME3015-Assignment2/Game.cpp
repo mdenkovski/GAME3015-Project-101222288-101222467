@@ -398,7 +398,7 @@ void Game::LoadTextures()
 	//MenuBackground
 	auto SettingWASDTex = std::make_unique<Texture>();
 	SettingWASDTex->Name = "SettingWASD";
-	SettingWASDTex->Filename = L"../../Textures/ARROWKEYS.dds";
+	SettingWASDTex->Filename = L"../../Textures/WASD.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), SettingWASDTex->Filename.c_str(),
 		SettingWASDTex->Resource, SettingWASDTex->UploadHeap));
@@ -408,7 +408,7 @@ void Game::LoadTextures()
 	//MenuBackground
 	auto SettingArrowTex = std::make_unique<Texture>();
 	SettingArrowTex->Name = "SettingArrow";
-	SettingArrowTex->Filename = L"../../Textures/Arrow.dds";
+	SettingArrowTex->Filename = L"../../Textures/ARROWKEYS.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), SettingArrowTex->Filename.c_str(),
 		SettingArrowTex->Resource, SettingArrowTex->UploadHeap));
@@ -499,7 +499,7 @@ void Game::BuildDescriptorHeaps()
 	auto MenuArrowTex = mTextures["MenuArrow"]->Resource;
 	auto SettingWASDTex = mTextures["SettingWASD"]->Resource;
 	auto SettingArrowTex = mTextures["SettingArrow"]->Resource;
-	auto MenuSettingTex = mTextures["MenuSetting"]->Resource;
+	auto MenuSettingTex = mTextures["MenuSettingTex"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -684,6 +684,14 @@ void Game::BuildFrameResources()
 			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));
 	}
 }
+void Game::BuildFrameResources(int numRenderItems)
+{
+	for (int i = 0; i < gNumFrameResources; ++i)
+	{
+		mFrameResources.push_back(std::make_unique<FrameResource>(md3dDevice.Get(),
+			1, (UINT)numRenderItems, (UINT)mMaterials.size()));
+	}
+}
 //step13
 void Game::BuildMaterials()
 {
@@ -776,8 +784,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto SettingWASD = std::make_unique<Material>();
 	SettingWASD->Name = "SettingWASD";
-	SettingWASD->MatCBIndex = 7;
-	SettingWASD->DiffuseSrvHeapIndex = 7;
+	SettingWASD->MatCBIndex = 8;
+	SettingWASD->DiffuseSrvHeapIndex = 8;
 	SettingWASD->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SettingWASD->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	SettingWASD->Roughness = 0.2f;
@@ -787,8 +795,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto SettingArrow = std::make_unique<Material>();
 	SettingArrow->Name = "SettingArrow";
-	SettingArrow->MatCBIndex = 7;
-	SettingArrow->DiffuseSrvHeapIndex = 7;
+	SettingArrow->MatCBIndex = 9;
+	SettingArrow->DiffuseSrvHeapIndex = 9;
 	SettingArrow->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SettingArrow->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	SettingArrow->Roughness = 0.2f;
@@ -798,13 +806,13 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto MenuSetting = std::make_unique<Material>();
 	MenuSetting->Name = "MenuSetting";
-	MenuSetting->MatCBIndex = 7;
-	MenuSetting->DiffuseSrvHeapIndex = 7;
+	MenuSetting->MatCBIndex = 10;
+	MenuSetting->DiffuseSrvHeapIndex = 10;
 	MenuSetting->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	MenuSetting->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	MenuSetting->Roughness = 0.2f;
 
-	mMaterials["MenuSetting"] = std::move(MenuSetting);
+	mMaterials["MenuSettingTex"] = std::move(MenuSetting);
 
 }
 

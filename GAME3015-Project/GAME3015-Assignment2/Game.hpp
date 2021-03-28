@@ -48,6 +48,7 @@ public:
 	void BuildShapeGeometry();
 	void BuildPSOs();
 	void BuildFrameResources();
+	void BuildFrameResources(int numRenderItems);
 	void BuildMaterials();
 	void BuildRenderItems();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
