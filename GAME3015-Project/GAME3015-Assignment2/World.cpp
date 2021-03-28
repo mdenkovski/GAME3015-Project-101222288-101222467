@@ -43,14 +43,6 @@ void World::update(const GameTimer& gt)
 
 
 
-	/*mSceneGraph->update(gt);*/
-
-	////AirCraft Bouncing
-	//if (mPlayerAircraft->getWorldPosition().x < mWorldBounds.x
-	//	|| mPlayerAircraft->getWorldPosition().x > mWorldBounds.y)
-	//{
-	//	mPlayerAircraft->setVelocity(XMFLOAT3(mPlayerAircraft->getVelocity().x * -1.0f, 0, 0));
-	//}
 }
 
 void World::draw()

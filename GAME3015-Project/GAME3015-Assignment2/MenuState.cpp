@@ -1,10 +1,5 @@
 #include "MenuState.hpp"
 #include "Game.hpp"
-//#include "Utility.hpp"
-//#include "ResourceHolder.hpp"
-
-//#include <SFML/Graphics/RenderWindow.hpp>
-//#include <SFML/Graphics/View.hpp>
 
 
 MenuState::MenuState(StateStack& stack, Context context, Game* game)
@@ -20,30 +15,7 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 {
 	BuildScene();
 
-	/*mOptions.push_back(new SpriteNode(mGame));
-	mOptions.push_back(new SpriteNode(mGame));*/
-
-	//sf::Texture& texture = context.textures->get(Textures::TitleScreen);
-	//sf::Font& font = context.fonts->get(Fonts::Main);
-
-	//mBackgroundSprite.setTexture(texture);
-	//
-	//// A simple menu demonstration
-	//sf::Text playOption;
-	//playOption.setFont(font);
-	//playOption.setString("Play");
-	//centerOrigin(playOption);
-	//playOption.setPosition(context.window->getView().getSize() / 2.f);
-	//mOptions.push_back(playOption);
-
-	//sf::Text exitOption;
-	//exitOption.setFont(font);
-	//exitOption.setString("Exit");
-	//centerOrigin(exitOption);
-	//exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
-	//mOptions.push_back(exitOption);
-
-	//updateOptionText();
+	
 }
 
 void MenuState::draw()
@@ -51,13 +23,7 @@ void MenuState::draw()
 
 	mSceneGraph->draw();
 
-	/*sf::RenderWindow& window = *getContext().window;
 
-	window.setView(window.getDefaultView());
-	window.draw(mBackgroundSprite);
-
-	for(const sf::Text& text: mOptions)
-		window.draw(text);*/
 }
 
 bool MenuState::update(const GameTimer& gt)
@@ -70,14 +36,7 @@ bool MenuState::update(const GameTimer& gt)
 
 	mMenuSelector->setPosition(x, y, z);
 
-	/*if (mOptionIndex == 0)
-	{
-		mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
-	}
-	else
-	{
-		mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
-	}*/
+	
 	return true;
 }
 
@@ -134,12 +93,7 @@ void MenuState::updateOptionText()
 	if (mOptions.empty())
 		return;
 
-	//// White all texts
-	//for(sf::Text& text : mOptions)
-	//	text.setFillColor(sf::Color::White);
-
-	//// Red the selected text
-	//mOptions[mOptionIndex].setFillColor(sf::Color::Red);
+	
 }
 
 void MenuState::BuildScene()

@@ -1,11 +1,6 @@
 #include "SettingState.h"
 
 #include "Game.hpp"
-//#include "Utility.hpp"
-//#include "ResourceHolder.hpp"
-
-//#include <SFML/Graphics/RenderWindow.hpp>
-//#include <SFML/Graphics/View.hpp>
 
 
 SettingState::SettingState(StateStack& stack, Context context, Game* game)
@@ -170,7 +165,7 @@ void SettingState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildRenderItems();
+
 	mGame->BuildFrameResources();
 
 }

@@ -41,7 +41,6 @@ bool Game::Initialize()
 	BuildShapeGeometry();
 	BuildMaterials();
 
-	//mStateStack.applyPendingChanges();
 
 
 	//BuildRenderItems();
@@ -207,12 +206,7 @@ void Game::OnKeyboardInput(WPARAM btnState)
 	mStateStack.handleEvent(btnState);
 }
 
-//void Game::ProcessInput()
-//{
-//	CommandQueue& commands = mWorld.getCommandQueue();
-//	mPlayer.handleEvent(commands);
-//	mPlayer.handleRealtimeInput(commands);
-//}
+
 
 void Game::UpdateCamera(const GameTimer& gt)
 {

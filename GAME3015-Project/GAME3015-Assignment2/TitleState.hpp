@@ -5,8 +5,6 @@
 #include "SpriteNode.h"
 #include "../../Common/d3dApp.h"
 
-//#include <SFML/Graphics/Sprite.hpp>
-//#include <SFML/Graphics/Text.hpp>
 
 
 class TitleState : public State
@@ -18,11 +16,8 @@ class TitleState : public State
 		virtual bool		update(const GameTimer& gt);
 		virtual bool		handleEvent(WPARAM btnState);
 
-
-
 	private:
 
-		//sf::Text			mText;
 
 		bool				mShowText;
 		float			mTextEffectTime;
@@ -30,7 +25,7 @@ class TitleState : public State
 		SpriteNode* mBackground;
 		SpriteNode* mPrompt;
 
-		//Game* mGame;
+		
 		SceneNode* mSceneGraph;
 
 		// Inherited via State

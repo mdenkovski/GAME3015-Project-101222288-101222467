@@ -2,21 +2,11 @@
 #define BOOK_STATE_HPP
 
 #include "StateIdentifiers.hpp"
-#include "ResourceIdentifiers.hpp"
 
 #include "../../Common/d3dApp.h"
-//#include "Game.hpp"
-
-//#include <SFML/System/Time.hpp>
-//#include <SFML/Window/Event.hpp>
 
 #include <memory>
 
-//
-//namespace sf
-//{
-//	class RenderWindow;
-//}
 
 class StateStack;
 class Player;
@@ -30,10 +20,6 @@ class State
 		struct Context
 		{
 								Context(Player& player);
-
-			//sf::RenderWindow*	window;
-			//TextureHolder*		textures;
-			//FontHolder*			fonts;
 			Player*				player;
 		};
 
@@ -55,8 +41,6 @@ class State
 		void				requestStateClear();
 
 		Context				getContext() const;
-
-		//Game*				mGame;
 		StateStack*			mStack;
 	private:
 		
