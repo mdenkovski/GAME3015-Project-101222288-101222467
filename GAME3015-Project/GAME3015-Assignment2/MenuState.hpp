@@ -25,6 +25,7 @@ class MenuState : public State
 		enum OptionNames
 		{
 			Play,
+			Setting,
 			Exit,
 		};
 
@@ -34,6 +35,7 @@ class MenuState : public State
 		SceneNode* mSceneGraph;
 		SpriteNode* mBackground;
 		SpriteNode* mMenuPlay;
+		SpriteNode* mMenuSetting;
 		SpriteNode* mMenuQuit;
 		SpriteNode* mMenuSelector;
 

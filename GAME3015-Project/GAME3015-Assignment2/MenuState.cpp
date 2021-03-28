@@ -14,6 +14,7 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 , mSceneGraph(new SceneNode(game))
 , mBackground(nullptr)
 , mMenuPlay(nullptr)
+, mMenuSetting(nullptr)
 , mMenuQuit(nullptr)
 , mMenuSelector (nullptr)
 {
@@ -89,6 +90,11 @@ bool MenuState::handleEvent(WPARAM btnState)
 			requestStackPop();
 			requestStackPush(States::Game);
 		}
+		else if (mOptionIndex == Setting)
+		{
+			requestStackPop();
+			requestStackPush(States::Setting);
+		}
 		else if (mOptionIndex == Exit)
 		{
 			// The exit option was chosen, by removing itself, the stack will be empty, and the game will know it is time to close.
@@ -155,11 +161,19 @@ void MenuState::BuildScene()
 
 	std::unique_ptr<SpriteNode> menuPlaySprite(new SpriteNode(mGame, "MenuPlay"));
 	mMenuPlay = menuPlaySprite.get();
-	mMenuPlay->setPosition(0, 0.1, 0.0);
+	mMenuPlay->setPosition(0, 0.1, 1.0);
 	mMenuPlay->setScale(3.0, 1.0, 2.0);
 	mMenuPlay->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(menuPlaySprite));
 	mOptions.push_back(mMenuPlay);
+
+	std::unique_ptr<SpriteNode> menuSettingSprite(new SpriteNode(mGame, "MenuSetting"));
+	mMenuSetting = menuSettingSprite.get();
+	mMenuSetting->setPosition(0, 0.1, 0.0);
+	mMenuSetting->setScale(3.0, 1.0, 2.0);
+	mMenuSetting->setVelocity(0, 0, 0);
+	mSceneGraph->attachChild(std::move(menuSettingSprite));
+	mOptions.push_back(mMenuSetting);
 
 	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "MenuQuit"));
 	mMenuQuit = menuQuitSprite.get();
