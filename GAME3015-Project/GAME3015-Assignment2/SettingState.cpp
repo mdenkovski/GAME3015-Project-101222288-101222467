@@ -104,6 +104,11 @@ bool SettingState::handleEvent(WPARAM btnState)
 			mGame->mPlayer.assignKey(Player::Action::MoveRight, VK_RIGHT);
 			mGame->mPlayer.resetKeyFlags();
 		}
+		else if (mOptionIndex == Return) 
+		{
+			requestStackPop();
+			requestStackPush(States::Menu);
+		}
 	}
 	else if (btnState == VK_UP)
 	{

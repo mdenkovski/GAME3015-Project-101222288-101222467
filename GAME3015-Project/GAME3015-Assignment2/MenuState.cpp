@@ -90,6 +90,11 @@ bool MenuState::handleEvent(WPARAM btnState)
 			requestStackPop();
 			requestStackPush(States::Game);
 		}
+		else if (mOptionIndex == Setting)
+		{
+			requestStackPop();
+			requestStackPush(States::Setting);
+		}
 		else if (mOptionIndex == Exit)
 		{
 			// The exit option was chosen, by removing itself, the stack will be empty, and the game will know it is time to close.
