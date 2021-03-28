@@ -43,14 +43,12 @@ bool PauseState::handleEvent(WPARAM btnState)
 		requestStackPush(States::Menu);
 	}
 
-
-	return true;
+	return false;
 }
 
 
 void PauseState::BuildScene()
 {
-	
 }
 
 #pragma endregion

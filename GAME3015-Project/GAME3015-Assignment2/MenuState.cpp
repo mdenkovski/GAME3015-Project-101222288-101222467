@@ -12,6 +12,7 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 , mMenuSelector (nullptr)
 {
 	BuildScene();
+
 }
 
 void MenuState::draw()
@@ -142,7 +143,6 @@ void MenuState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildRenderItems();
 	mGame->BuildFrameResources();
 
 }
