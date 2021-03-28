@@ -41,7 +41,6 @@ bool Game::Initialize()
 	BuildShapeGeometry();
 	BuildMaterials();
 
-	//mStateStack.applyPendingChanges();
 	//BuildRenderItems();
 	//BuildFrameResources();
 	BuildPSOs();
@@ -201,12 +200,7 @@ void Game::OnKeyboardInput(WPARAM btnState)
 	mStateStack.handleEvent(btnState);
 }
 
-//void Game::ProcessInput()
-//{
-//	CommandQueue& commands = mWorld.getCommandQueue();
-//	mPlayer.handleEvent(commands);
-//	mPlayer.handleRealtimeInput(commands);
-//}
+
 
 void Game::UpdateCamera(const GameTimer& gt)
 {
@@ -868,12 +862,6 @@ void Game::BuildMaterials()
 
 void Game::BuildRenderItems()
 {
-	//mWorld.buildScene();
-	
-
-	//// All the render items are opaque.
-	//for (auto& e : mAllRitems)
-	//	mOpaqueRitems.push_back(e.get());
 }
 
 void Game::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)

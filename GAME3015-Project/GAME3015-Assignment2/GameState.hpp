@@ -6,10 +6,6 @@
 #include "State.hpp"
 #include "World.hpp"
 #include "SpriteNode.h"
-//#include "../../Common/d3dApp.h"
-
-//#include <SFML/Graphics/Sprite.hpp>
-//#include <SFML/Graphics/Text.hpp>
 
 class GameState : public State
 {
@@ -25,7 +21,6 @@ class GameState : public State
 
 
 	private:
-		//bool isPaused;
 		World*				mWorld;
 		Player&				mPlayer;
 	public:

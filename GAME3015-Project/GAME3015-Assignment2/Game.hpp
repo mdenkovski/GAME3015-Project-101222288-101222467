@@ -34,7 +34,6 @@ public:
 	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 	virtual void OnKeyboardInput(WPARAM btnState)override;
 
-	//void ProcessInput();
 	void UpdateCamera(const GameTimer& gt);
 	void AnimateMaterials(const GameTimer& gt);
 	void UpdateObjectCBs(const GameTimer& gt);
@@ -86,13 +85,6 @@ public:
 
 	PassConstants mMainPassCB;
 
-	//XMFLOAT3 mEyePos = { 0.0f, 0.0f, -10.0f };
-	//XMFLOAT4X4 mView = MathHelper::Identity4x4();
-	//XMFLOAT4X4 mProj = MathHelper::Identity4x4();
-
-	//float mTheta = 1.3f * XM_PI;
-	//float mPhi = 0.4f * XM_PI;
-	//float mRadius = 2.5f;
 
 	POINT mLastMousePos;
 	Camera mCamera;
@@ -106,18 +98,5 @@ public:
 	std::vector<std::unique_ptr<RenderItem>>& getRenderItems() { return mAllRitems; }
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
-
-
-
-
-
-	ID3D12GraphicsCommandList* GetCommandList() { return mCommandList.Get(); }
-	ID3D12CommandQueue* GetCommandQueue() { return mCommandQueue.Get(); }
-
-	void FlushCommandQueueGame() { FlushCommandQueue(); }
-
-	ID3D12CommandAllocator* GetCommandAllocator() { return mDirectCmdListAlloc.Get(); }
-
-	ID3D12Device* GetD3DDevice() { return md3dDevice.Get(); }
 
 };

@@ -15,7 +15,6 @@ public:
 
 	Game* Getgame() { return mGame; }
 
-	//void								loadTextures();
 	void								buildScene();
 private:
 	CommandQueue						mCommandQueue;

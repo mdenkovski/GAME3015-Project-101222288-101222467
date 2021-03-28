@@ -12,9 +12,11 @@ class TitleState : public State
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
 		virtual bool		handleEvent(WPARAM btnState);
+
 	private:
 		SpriteNode* mBackground;
 		SpriteNode* mPrompt;
+
 		SceneNode* mSceneGraph;
 
 		// Inherited via State

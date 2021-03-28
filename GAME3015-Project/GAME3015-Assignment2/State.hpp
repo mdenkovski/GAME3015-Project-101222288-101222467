@@ -2,7 +2,6 @@
 #define BOOK_STATE_HPP
 
 #include "StateIdentifiers.hpp"
-#include "ResourceIdentifiers.hpp"
 #include "../../Common/d3dApp.h"
 #include <memory>
 

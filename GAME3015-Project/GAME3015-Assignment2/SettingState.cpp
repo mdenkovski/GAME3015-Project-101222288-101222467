@@ -13,8 +13,6 @@ SettingState::SettingState(StateStack& stack, Context context, Game* game)
 	, mMenuSelector(nullptr)
 {
 	BuildScene();
-
-
 }
 
 void SettingState::draw()
@@ -163,7 +161,7 @@ void SettingState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildRenderItems();
+
 	mGame->BuildFrameResources();
 
 }

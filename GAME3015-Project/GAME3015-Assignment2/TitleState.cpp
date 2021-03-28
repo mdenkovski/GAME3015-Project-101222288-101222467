@@ -5,7 +5,6 @@
 
 TitleState::TitleState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
-
 , mShowText(true)
 , mTextEffectTime()
 , mBackground(nullptr)
@@ -16,8 +15,6 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 
 void TitleState::draw()
 {
-
-
 	mSceneGraph->draw();
 }
 
@@ -43,7 +40,6 @@ void TitleState::BuildScene()
 	mGame->mAllRitems.clear();
 	mGame->mOpaqueRitems.clear();
 	mGame->mFrameResources.clear();
-
 	mGame->BuildMaterials();
 
 
@@ -68,12 +64,6 @@ void TitleState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	
 	mGame->BuildFrameResources();
-	
-	
-
-
-
 	
 }

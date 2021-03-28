@@ -29,7 +29,6 @@ bool MenuState::update(const GameTimer& gt)
 
 	mMenuSelector->setPosition(x, y, z);
 
-
 	return true;
 }
 

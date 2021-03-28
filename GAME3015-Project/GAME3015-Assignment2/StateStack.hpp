@@ -3,28 +3,18 @@
 
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
-#include "ResourceIdentifiers.hpp"
 #include "../../Common/d3dApp.h"
-//#include "Game.hpp"
-
-//#include <SFML/System/NonCopyable.hpp>
-//#include <SFML/System/Time.hpp>
 
 #include <vector>
 #include <utility>
 #include <functional>
 #include <map>
 
-//
-//namespace sf
-//{
-//	class Event;
-//	class RenderWindow;
-//}
+
 
 class Game;
 
-class StateStack //: private sf::NonCopyable
+class StateStack 
 {
 	public:
 		enum Action
@@ -63,7 +53,6 @@ class StateStack //: private sf::NonCopyable
 		struct PendingChange
 		{
 			explicit			PendingChange(Action action, States::ID stateID = States::None);
-
 			Action				action;
 			States::ID			stateID;
 		};
