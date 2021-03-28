@@ -48,7 +48,7 @@ class State
 
 		virtual void		BuildScene() = 0;
 
-
+		Game*				mGame;
 	protected:
 		void				requestStackPush(States::ID stateID);
 		void				requestStackPop();
@@ -56,7 +56,7 @@ class State
 
 		Context				getContext() const;
 
-		Game*				mGame;
+		//Game*				mGame;
 		StateStack*			mStack;
 	private:
 		

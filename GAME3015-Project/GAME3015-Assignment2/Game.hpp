@@ -6,7 +6,7 @@
 #include "GameState.hpp"
 #include "MenuState.hpp"
 #include "PauseState.hpp"
-//#include "LoadingState.hpp"
+#include "SettingState.h"
 #include "StateStack.hpp"
 
 class StateStack;

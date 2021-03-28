@@ -34,10 +34,10 @@ Player::Player()
 	mKeyBinding[VK_UP] = MoveUp;
 	mKeyBinding[VK_DOWN] = MoveDown;
 
-	mKeyBinding['A'] = MoveLeft;
-	mKeyBinding['D'] = MoveRight;
-	mKeyBinding['W'] = MoveUp;
-	mKeyBinding['S'] = MoveDown;
+	//mKeyBinding['A'] = MoveLeft;
+	//mKeyBinding['D'] = MoveRight;
+	//mKeyBinding['W'] = MoveUp;
+	//mKeyBinding['S'] = MoveDown;
 
 	// Set initial action bindings
 	initializeActions();
@@ -124,6 +124,7 @@ void Player::initializeActions()
 
 void Player::resetKeyFlags()
 {
+	mKeyFlag.clear();
 	for (auto pair : mKeyBinding)
 	{
 		mKeyFlag[pair.first] = false;

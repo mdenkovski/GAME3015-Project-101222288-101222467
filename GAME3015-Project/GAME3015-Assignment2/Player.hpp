@@ -23,11 +23,11 @@ public:
 
 	void					assignKey(Action action, char key);
 	char					getAssignedKey(Action action) const;
-
+	void					resetKeyFlags();
 
 private:
 	void					initializeActions();
-	void					resetKeyFlags();
+	
 	static bool				isRealtimeAction(Action action);
 
 

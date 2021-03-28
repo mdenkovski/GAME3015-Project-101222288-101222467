@@ -19,10 +19,8 @@ public:
 private:
 	enum OptionNames
 	{
-		MoveUP,
-		MoveDown,
-		MoveLeft,
-		MoveRight,
+		WASD,
+		ARROWKEYS,
 		Return
 	};
 
@@ -31,11 +29,12 @@ private:
 
 	SceneNode* mSceneGraph;
 	SpriteNode* mBackground;
-	SpriteNode* mMenuPlay;
+	SpriteNode* mSettingWASD;
+	SpriteNode* mSettingARROW;
 	SpriteNode* mMenuQuit;
 	SpriteNode* mMenuSelector;
-
-	int		mOptions;
+	std::vector<SpriteNode*>	mOptions;
+	std::size_t				mOptionIndex;
 	int mTotalNumOptions;
 	std::size_t				mOptionIndex;
 

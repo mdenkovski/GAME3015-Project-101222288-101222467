@@ -19,8 +19,8 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 {
 	BuildScene();
 
-	mOptions.push_back(new SpriteNode(mGame));
-	mOptions.push_back(new SpriteNode(mGame));
+	/*mOptions.push_back(new SpriteNode(mGame));
+	mOptions.push_back(new SpriteNode(mGame));*/
 
 	//sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	//sf::Font& font = context.fonts->get(Fonts::Main);
@@ -62,15 +62,21 @@ void MenuState::draw()
 bool MenuState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
-	
-	if (mOptionIndex == 0)
+
+	float x = mOptions[mOptionIndex]->getWorldPosition().x;
+	float y = mOptions[mOptionIndex]->getWorldPosition().y - 0.6;
+	float z = mOptions[mOptionIndex]->getWorldPosition().z;
+
+	mMenuSelector->setPosition(x, y, z);
+
+	/*if (mOptionIndex == 0)
 	{
 		mMenuSelector->setPosition(-0.5f, 0.1f, 0.0f);
 	}
 	else
 	{
 		mMenuSelector->setPosition(-0.5f, 0.1f, -1.0f);
-	}
+	}*/
 	return true;
 }
 
@@ -193,13 +199,16 @@ void MenuState::BuildScene()
 	mMenuPlay->setScale(3.0, 1.0, 2.0);
 	mMenuPlay->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(menuPlaySprite));
+	mOptions.push_back(mMenuPlay);
 
 	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "MenuQuit"));
 	mMenuQuit = menuQuitSprite.get();
-	mMenuQuit->setPosition	(	0	, 0.1	, -1.0	);
-	mMenuQuit->setScale		(	3.0	, 1.0	, 2.0	);
-	mMenuQuit->setVelocity	(	0	, 0		, 0		);
+	mMenuQuit->setPosition(0, 0.1, -1.0);
+	mMenuQuit->setScale(3.0, 1.0, 2.0);
+	mMenuQuit->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(menuQuitSprite));
+
+	mOptions.push_back(mMenuQuit);
 
 	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(mGame, "MenuArrow"));
 	mMenuSelector = menuArrowSprite.get();
