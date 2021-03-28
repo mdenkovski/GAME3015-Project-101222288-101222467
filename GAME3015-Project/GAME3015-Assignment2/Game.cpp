@@ -566,37 +566,37 @@ void Game::BuildDescriptorHeaps()
 	srvDesc.Format = TitlePromptTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(TitlePromptTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Play text Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuPlayTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuPlayTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Quit Text Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuQuitTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuQuitTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Arrow text Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuArrowTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuArrowTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//WASD Text Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = SettingWASDTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(SettingWASDTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Setting Arrow Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = SettingArrowTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(SettingArrowTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Setting Label Descriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuSettingTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuSettingTex.Get(), &srvDesc, hDescriptor);
 
-	//Title Prompt Descriptor
+	//Pause DisplayDescriptor
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = PauseDisplayTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(PauseDisplayTex.Get(), &srvDesc, hDescriptor);
