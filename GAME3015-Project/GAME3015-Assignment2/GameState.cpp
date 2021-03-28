@@ -58,15 +58,12 @@ void GameState::BuildScene()
 	mWorld->buildScene();
 
 	//pause stuff
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "TitleScreen"));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "PauseDisplay"));
 	mPauseBackground = backgroundSprite.get();
-	mPauseBackground->setPosition(25, 0.1, 12.5);
+	mPauseBackground->setPosition(25, 0.15, 12.5);
 	mPauseBackground->setScale(500.0, 1.0, 420.0);
 	mPauseBackground->setVelocity(0, 0, 0);
 	mPauseSceneGraph->attachChild(std::move(backgroundSprite));
-
-
-
 
 	mPauseSceneGraph->build();
 	//pause stuff end

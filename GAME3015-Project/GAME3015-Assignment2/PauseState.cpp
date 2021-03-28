@@ -3,14 +3,6 @@
 #include "Game.hpp"
 #include "GameState.hpp"
 #include "State.hpp"
-/*
-#include "Utility.hpp"
-#include "ResourceHolder.hpp"*/
-
-//#include <SFML/Graphics/RectangleShape.hpp>
-//#include <SFML/Graphics/RenderWindow.hpp>
-//#include <SFML/Graphics/View.hpp>
-
 
 PauseState::PauseState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
