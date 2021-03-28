@@ -868,12 +868,6 @@ void Game::BuildMaterials()
 
 void Game::BuildRenderItems()
 {
-	//mWorld.buildScene();
-	
-
-	//// All the render items are opaque.
-	//for (auto& e : mAllRitems)
-	//	mOpaqueRitems.push_back(e.get());
 }
 
 void Game::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)

@@ -4,7 +4,6 @@
 
 MenuState::MenuState(StateStack& stack, Context context, Game* game)
 : State(stack, context, game)
-//, mOptions()
 , mOptionIndex(0)
 , mSceneGraph(new SceneNode(game))
 , mBackground(nullptr)
@@ -15,15 +14,11 @@ MenuState::MenuState(StateStack& stack, Context context, Game* game)
 {
 	BuildScene();
 
-	
 }
 
 void MenuState::draw()
 {
-
 	mSceneGraph->draw();
-
-
 }
 
 bool MenuState::update(const GameTimer& gt)
@@ -35,8 +30,6 @@ bool MenuState::update(const GameTimer& gt)
 	float z = mOptions[mOptionIndex]->getWorldPosition().z;
 
 	mMenuSelector->setPosition(x, y, z);
-
-	
 	return true;
 }
 
@@ -92,8 +85,6 @@ void MenuState::updateOptionText()
 {
 	if (mOptions.empty())
 		return;
-
-	
 }
 
 void MenuState::BuildScene()
@@ -151,7 +142,6 @@ void MenuState::BuildScene()
 	for (auto& e : mGame->mAllRitems)
 		mGame->mOpaqueRitems.push_back(e.get());
 
-	//mGame->BuildRenderItems();
 	mGame->BuildFrameResources();
 
 }

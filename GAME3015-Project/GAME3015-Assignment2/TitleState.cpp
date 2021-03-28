@@ -11,7 +11,6 @@ TitleState::TitleState(StateStack& stack, Context context, Game* game)
 , mSceneGraph(new SceneNode(game))
 
 {
-
 	BuildScene();
 }
 
@@ -26,7 +25,6 @@ bool TitleState::update(const GameTimer& gt)
 
 	if (mTextEffectTime >= 0.5f)
 	{
-		//mShowText = !mShowText;
 		mTextEffectTime = 0;
 	}
 	mSceneGraph->update(gt);
