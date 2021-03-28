@@ -63,8 +63,8 @@ bool MenuState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
 
-	float x = mOptions[mOptionIndex]->getWorldPosition().x;
-	float y = mOptions[mOptionIndex]->getWorldPosition().y - 0.6;
+	float x = mOptions[mOptionIndex]->getWorldPosition().x - 0.6;
+	float y = mOptions[mOptionIndex]->getWorldPosition().y;
 	float z = mOptions[mOptionIndex]->getWorldPosition().z;
 
 	mMenuSelector->setPosition(x, y, z);
