@@ -80,49 +80,9 @@ bool MenuState::update(const GameTimer& gt)
 	return true;
 }
 
-bool MenuState::handleEvent()
+bool MenuState::handleEvent(WPARAM btnState)
 {
-	//// The demonstration menu logic
-	//if (event.type != sf::Event::KeyPressed)
-	//	return false;
-
-	//if (event.key.code == sf::Keyboard::Return)
-	//{
-	//	if (mOptionIndex == Play)
-	//	{
-	//		requestStackPop();
-	//		requestStackPush(States::Game);
-	//	}
-	//	else if (mOptionIndex == Exit)
-	//	{
-	//		// The exit option was chosen, by removing itself, the stack will be empty, and the game will know it is time to close.
-	//		requestStackPop();
-	//	}
-	//}
-
-	//else if (event.key.code == sf::Keyboard::Up)
-	//{
-	//	// Decrement and wrap-around
-	//	if (mOptionIndex > 0)
-	//		mOptionIndex--;
-	//	else
-	//		mOptionIndex = mOptions.size() - 1;
-
-	//	updateOptionText();
-	//}
-
-	//else if (event.key.code == sf::Keyboard::Down)
-	//{
-	//	// Increment and wrap-around
-	//	if (mOptionIndex < mOptions.size() - 1)
-	//		mOptionIndex++;
-	//	else
-	//		mOptionIndex = 0;
-
-	//	updateOptionText();
-	//}
-
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (btnState == VK_RETURN)
 	{
 		if (mOptionIndex == Play)
 		{
@@ -135,7 +95,7 @@ bool MenuState::handleEvent()
 			requestStackPop();
 		}
 	}
-	else if (GetAsyncKeyState(VK_UP) & 0x8000)
+	else if (btnState == VK_UP)
 	{
 		// Decrement and wrap-around
 		if (mOptionIndex > 0)
@@ -145,7 +105,7 @@ bool MenuState::handleEvent()
 
 		updateOptionText();
 	}
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	else if (btnState == VK_DOWN)
 	{
 		// Increment and wrap-around
 		if (mOptionIndex < mOptions.size() - 1)

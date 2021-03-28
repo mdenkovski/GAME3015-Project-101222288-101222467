@@ -17,7 +17,7 @@ class GameState : public State
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
-		virtual bool		handleEvent();
+		virtual bool		handleEvent(WPARAM btnState);
 
 
 		void ProcessInput();

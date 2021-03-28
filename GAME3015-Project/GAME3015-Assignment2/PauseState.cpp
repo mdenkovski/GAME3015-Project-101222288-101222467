@@ -16,7 +16,6 @@ PauseState::PauseState(StateStack& stack, Context context, Game* game)
 , mPausedText(nullptr)
 , mInstructionText(nullptr)
 , mSceneGraph(new SceneNode(game))
-, pauseStarted(true)
 {
 	/*sf::Font& font = context.fonts->get(Fonts::Main);
 	sf::Vector2f viewSize = context.window->getView().getSize();
@@ -66,47 +65,19 @@ bool PauseState::update(const GameTimer& gt)
 	return true;
 }
 
-bool PauseState::handleEvent()
+bool PauseState::handleEvent(WPARAM btnState)
 {
-	//if (event.type != sf::Event::KeyPressed)
-	//	return false;
-
-	//if (event.key.code == sf::Keyboard::Escape)
-	//{
-	//	// Escape pressed, remove itself to return to the game
-	//	requestStackPop();
-	//}
-
-	//if (event.key.code == sf::Keyboard::BackSpace)
-	//{
-	//	// Escape pressed, remove itself to return to the game
-	//	requestStateClear();
-	//	requestStackPush(States::Menu);
-	//}
-
-	//return false;
-
-	//p key
-	if (GetAsyncKeyState('O') & 0x8000 && !pauseStarted)
+	
+	if (btnState == VK_ESCAPE )
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStackPop();
-		pauseStarted = true;
 	}
-	else
-	{
-		pauseStarted = false;
-	}
-
-	if (GetAsyncKeyState(VK_BACK) & 0x8000)
+	else if (btnState == VK_BACK)
 	{
 		// Escape pressed, remove itself to return to the game
 		requestStateClear();
 		requestStackPush(States::Menu);
-	}
-	else
-	{
-		return false;
 	}
 
 

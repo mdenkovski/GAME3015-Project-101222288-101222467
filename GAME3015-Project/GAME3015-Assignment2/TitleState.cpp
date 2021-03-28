@@ -48,27 +48,11 @@ bool TitleState::update(const GameTimer& gt)
 	return true;
 }
 
-bool TitleState::handleEvent()
+bool TitleState::handleEvent(WPARAM btnState)
 {
-	//check if any key pressed
-	for (int i = 0; i < 256; i++) {
-		if (GetAsyncKeyState(i) & 0x8000)
-		{
-			////key pressed
-			requestStackPop();
-			requestStackPush(States::Menu);
-			break;
-		}
-	}
-
-	
-
-	//// If any key is pressed, trigger the next screen
-	//if (event.type == sf::Event::KeyPressed)
-	//{
-	//	requestStackPop();
-	//	requestStackPush(States::Menu);
-	//}
+	//key pressed
+	requestStackPop();
+	requestStackPush(States::Menu);
 
 	return true;
 }

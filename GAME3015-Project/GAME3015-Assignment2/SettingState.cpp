@@ -10,7 +10,7 @@
 
 SettingState::SettingState(StateStack& stack, Context context, Game* game)
 	: State(stack, context, game)
-	//, mOptions()
+	, mOptions()
 	, mOptionIndex(0)
 	, mSceneGraph(new SceneNode(game))
 	, mBackground(nullptr)
@@ -64,6 +64,7 @@ void SettingState::draw()
 bool SettingState::update(const GameTimer& gt)
 {
 	mSceneGraph->update(gt);
+
 	float x = mOptions[mOptionIndex]->getWorldPosition().x;
 	float y = mOptions[mOptionIndex]->getWorldPosition().y - 0.6;
 	float z = mOptions[mOptionIndex]->getWorldPosition().z;
@@ -81,49 +82,11 @@ bool SettingState::update(const GameTimer& gt)
 	return true;
 }
 
-bool SettingState::handleEvent()
+bool SettingState::handleEvent(WPARAM btnState)
 {
-	//// The demonstration menu logic
-	//if (event.type != sf::Event::KeyPressed)
-	//	return false;
+	
 
-	//if (event.key.code == sf::Keyboard::Return)
-	//{
-	//	if (mOptionIndex == Play)
-	//	{
-	//		requestStackPop();
-	//		requestStackPush(States::Game);
-	//	}
-	//	else if (mOptionIndex == Exit)
-	//	{
-	//		// The exit option was chosen, by removing itself, the stack will be empty, and the game will know it is time to close.
-	//		requestStackPop();
-	//	}
-	//}
-
-	//else if (event.key.code == sf::Keyboard::Up)
-	//{
-	//	// Decrement and wrap-around
-	//	if (mOptionIndex > 0)
-	//		mOptionIndex--;
-	//	else
-	//		mOptionIndex = mOptions.size() - 1;
-
-	//	updateOptionText();
-	//}
-
-	//else if (event.key.code == sf::Keyboard::Down)
-	//{
-	//	// Increment and wrap-around
-	//	if (mOptionIndex < mOptions.size() - 1)
-	//		mOptionIndex++;
-	//	else
-	//		mOptionIndex = 0;
-
-	//	updateOptionText();
-	//}
-
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (btnState == VK_RETURN )
 	{
 		if (mOptionIndex == WASD)
 		{ // Set controls to this
@@ -142,7 +105,7 @@ bool SettingState::handleEvent()
 			mGame->mPlayer.resetKeyFlags();
 		}
 	}
-	else if (GetAsyncKeyState(VK_UP) & 0x8000)
+	else if (btnState == VK_UP)
 	{
 		// Decrement and wrap-around
 		if (mOptionIndex > 0)
@@ -152,7 +115,7 @@ bool SettingState::handleEvent()
 
 		updateOptionText();
 	}
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	else if (btnState == VK_DOWN)
 	{
 		// Increment and wrap-around
 		if (mOptionIndex < mOptions.size() - 1)
