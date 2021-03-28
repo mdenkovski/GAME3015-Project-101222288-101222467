@@ -425,7 +425,25 @@ void Game::LoadTextures()
 
 	mTextures[MenuSettingTex->Name] = std::move(MenuSettingTex);
 
+	//MenuBackground
+	auto SettingReturnTex = std::make_unique<Texture>();
+	SettingReturnTex->Name = "SettingReturn";
+	SettingReturnTex->Filename = L"../../Textures/Return.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), SettingReturnTex->Filename.c_str(),
+		SettingReturnTex->Resource, SettingReturnTex->UploadHeap));
 
+	mTextures[SettingReturnTex->Name] = std::move(SettingReturnTex);
+
+	//PAUSE STATE
+	auto PauseDisplayTex = std::make_unique<Texture>();
+	PauseDisplayTex->Name = "PauseDisplay";
+	PauseDisplayTex->Filename = L"../../Textures/PAUSE_STATE.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+		mCommandList.Get(), PauseDisplayTex->Filename.c_str(),
+		PauseDisplayTex->Resource, PauseDisplayTex->UploadHeap));
+
+	mTextures[PauseDisplayTex->Name] = std::move(PauseDisplayTex);
 
 }
 
@@ -479,7 +497,7 @@ void Game::BuildDescriptorHeaps()
 	// Create the SRV heap.
 	//
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 11;
+	srvHeapDesc.NumDescriptors = 13;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -500,6 +518,8 @@ void Game::BuildDescriptorHeaps()
 	auto SettingWASDTex = mTextures["SettingWASD"]->Resource;
 	auto SettingArrowTex = mTextures["SettingArrow"]->Resource;
 	auto MenuSettingTex = mTextures["MenuSettingTex"]->Resource;
+	auto SettingReturnTex = mTextures["SettingReturn"]->Resource;
+	auto PauseDisplayTex = mTextures["PauseDisplay"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
@@ -575,6 +595,11 @@ void Game::BuildDescriptorHeaps()
 	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
 	srvDesc.Format = MenuSettingTex->GetDesc().Format;
 	md3dDevice->CreateShaderResourceView(MenuSettingTex.Get(), &srvDesc, hDescriptor);
+
+	//Title Prompt Descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+	srvDesc.Format = PauseDisplayTex->GetDesc().Format;
+	md3dDevice->CreateShaderResourceView(PauseDisplayTex.Get(), &srvDesc, hDescriptor);
 
 }
 
@@ -813,6 +838,28 @@ void Game::BuildMaterials()
 	MenuSetting->Roughness = 0.2f;
 
 	mMaterials["MenuSettingTex"] = std::move(MenuSetting);
+
+	// title prompt material
+	auto SettingReturn = std::make_unique<Material>();
+	SettingReturn->Name = "SettingReturn";
+	SettingReturn->MatCBIndex = 11;
+	SettingReturn->DiffuseSrvHeapIndex = 11;
+	SettingReturn->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	SettingReturn->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	SettingReturn->Roughness = 0.2f;
+
+	mMaterials["SettingReturn"] = std::move(SettingReturn);
+
+
+	auto PauseDisplay = std::make_unique<Material>();
+	PauseDisplay->Name = "PauseDisplay";
+	PauseDisplay->MatCBIndex = 12;
+	PauseDisplay->DiffuseSrvHeapIndex = 12;
+	PauseDisplay->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	PauseDisplay->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
+	PauseDisplay->Roughness = 0.2f;
+
+	mMaterials["PauseDisplay"] = std::move(PauseDisplay);
 
 }
 
