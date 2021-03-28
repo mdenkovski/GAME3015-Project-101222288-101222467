@@ -5,9 +5,6 @@
 #include "SpriteNode.h"
 #include "../../Common/d3dApp.h"
 
-//#include <SFML/Graphics/Sprite.hpp>
-//#include <SFML/Graphics/Text.hpp>
-
 
 class MenuState : public State
 {

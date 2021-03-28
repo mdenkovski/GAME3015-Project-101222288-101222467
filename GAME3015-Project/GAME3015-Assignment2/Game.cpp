@@ -42,16 +42,10 @@ bool Game::Initialize()
 	BuildMaterials();
 
 	//mStateStack.applyPendingChanges();
-
-
 	//BuildRenderItems();
 	//BuildFrameResources();
 	BuildPSOs();
 	mPlayer = Player();
-	
-
-	
-
 
 	// Execute the initialization commands.
 	ThrowIfFailed(mCommandList->Close());

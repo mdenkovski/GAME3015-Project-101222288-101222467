@@ -21,12 +21,6 @@ void StateStack::update(const GameTimer& gt)
 		if (!(*itr)->update(gt))
 			break;
 	}
-	/*if (!mStack.empty())
-	{
-		auto itr = mStack.end();
-		(*itr)->update(gt);
-
-	}*/
 
 	applyPendingChanges();
 }
@@ -46,13 +40,6 @@ void StateStack::handleEvent(WPARAM btnState)
 		if (!(*itr)->handleEvent(btnState))
 			break;
 	}
-
-	/*if (!mStack.empty())
-	{
-		auto itr = mStack.end();
-		(*itr)->handleEvent();
-
-	}*/
 
 	applyPendingChanges();
 }

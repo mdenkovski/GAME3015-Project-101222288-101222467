@@ -36,7 +36,6 @@ private:
 	std::vector<SpriteNode*>	mOptions;
 	std::size_t				mOptionIndex;
 	int mTotalNumOptions;
-	//std::size_t				mOptionIndex;
 
 	// Inherited via State
 	virtual void BuildScene() override;

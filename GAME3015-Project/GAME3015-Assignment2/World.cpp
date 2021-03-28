@@ -16,7 +16,6 @@ World::World(Game* game)
 void World::update(const GameTimer& gt)
 {
 	// Scroll the world
-	//mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerAircraft->setVelocity(0.0f, 0.0f, 0.0f);
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
@@ -41,16 +40,6 @@ void World::update(const GameTimer& gt)
 
 #pragma endregion
 
-
-
-	/*mSceneGraph->update(gt);*/
-
-	////AirCraft Bouncing
-	//if (mPlayerAircraft->getWorldPosition().x < mWorldBounds.x
-	//	|| mPlayerAircraft->getWorldPosition().x > mWorldBounds.y)
-	//{
-	//	mPlayerAircraft->setVelocity(XMFLOAT3(mPlayerAircraft->getVelocity().x * -1.0f, 0, 0));
-	//}
 }
 
 void World::draw()
@@ -90,7 +79,6 @@ void World::buildScene()
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
 	mBackground = backgroundSprite.get();
-	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mBackground->setPosition(0, 0, 0.0);
 	mBackground->setScale(16.0, 1.0, 16.0);
 	mBackground->setVelocity(0,0, -mScrollSpeed);
@@ -98,7 +86,6 @@ void World::buildScene()
 
 	std::unique_ptr<SpriteNode> backgroundSprite2(new SpriteNode(mGame));
 	mBackground2 = backgroundSprite2.get();
-	//mBackground->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mBackground2->setPosition(0, 0, 16);
 	mBackground2->setScale(16.0, 1.0, 16.0);
 	mBackground2->setVelocity(0, 0, -mScrollSpeed);
@@ -129,6 +116,4 @@ void World::adaptPlayerVelocity()
 	if (velocity.x != 0.f && velocity.z != 0.f)
 		mPlayerAircraft->setVelocity(velocity.x / std::sqrt(2.f), velocity.y / std::sqrt(2.f), velocity.z / std::sqrt(2.f));
 
-	// Add scrolling velocity
-	//mPlayerAircraft->accelerate(mScrollSpeed, 0, 0);
 }

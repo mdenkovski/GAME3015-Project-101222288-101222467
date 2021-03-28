@@ -11,7 +11,6 @@ public:
 	void					handleEvent(CommandQueue& commands);
 	void					handleRealtimeInput(CommandQueue& commands);
 #pragma region step 1
-	//static const float		PlayerSpeed;
 	enum Action
 	{
 		MoveLeft,
