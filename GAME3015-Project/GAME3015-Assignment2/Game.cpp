@@ -696,6 +696,11 @@ void Game::BuildPSOs()
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&opaquePsoDesc, IID_PPV_ARGS(&mOpaquePSO)));
 }
 
+void Game::ClearFrameResources()
+{
+	mFrameResources.clear();
+}
+
 //void Game::BuildFrameResources()
 //{
 //	for (int i = 0; i < gNumFrameResources; ++i)
@@ -856,7 +861,6 @@ void Game::BuildMaterials()
 
 	mMaterials["PauseDisplay"] = std::move(PauseDisplay);
 
-	
 }
 
 void Game::BuildRenderItems()

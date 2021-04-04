@@ -4,9 +4,6 @@
 GameState::GameState(StateStack* stack, Context* context)
 : State(stack, context)
 , mWorld(this)
-, mPauseBackground(nullptr)
-, mPausedText(nullptr)
-, mPauseInstructionText(nullptr)
 , mPauseSceneGraph(new SceneNode(this))
 {
 	BuildScene();
@@ -58,10 +55,10 @@ void GameState::BuildScene()
 	//pause stuff
 	
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this, "PauseDisplay"));
-	mPauseBackground = backgroundSprite.get();
-	mPauseBackground->setPosition(0, 0.15, 0);
-	mPauseBackground->setScale(6, 1.0, 6);
-	mPauseBackground->setVelocity(0, 0, 0);
+	//mPauseBackground = backgroundSprite.get();
+	backgroundSprite->setPosition(0, 0.15, 0);
+	backgroundSprite->setScale(6, 1.0, 6);
+	backgroundSprite->setVelocity(0, 0, 0);
 	mPauseSceneGraph->attachChild(std::move(backgroundSprite));
 
 	mPauseSceneGraph->build();
@@ -69,10 +66,8 @@ void GameState::BuildScene()
 	//for (auto& e : getContext()->game->mAllRitems)
 	//	getContext()->game->mOpaqueRitems.push_back(e.get());
 
-	if (getContext()->game->mFrameResources.size() > 0)
-	{
-		getContext()->game->mFrameResources.clear();
-	}
+	
+	getContext()->game->ClearFrameResources();
 	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 

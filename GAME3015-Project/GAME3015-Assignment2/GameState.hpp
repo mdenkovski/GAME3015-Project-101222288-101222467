@@ -24,9 +24,10 @@ class GameState : public State
 		World				mWorld;
 	public:
 		SceneNode* mPauseSceneGraph;
+		/*
 		SpriteNode* mPauseBackground;
 		SpriteNode* mPausedText;
-		SpriteNode* mPauseInstructionText;
+		SpriteNode* mPauseInstructionText;*/
 private:
 		// Inherited via State
 		virtual void BuildScene() override;

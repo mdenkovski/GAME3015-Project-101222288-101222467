@@ -43,22 +43,22 @@ bool SettingState::handleEvent(WPARAM btnState)
 	{
 		if (mOptionIndex == WASD)
 		{ // Set controls to this
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveUp, 'W');
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveDown, 'S');
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveLeft, 'A');
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveRight, 'D');
-			getContext()->game->mPlayer.resetKeyFlags();
+			getContext()->player->assignKey(Player::Action::MoveUp, 'W');
+			getContext()->player->assignKey(Player::Action::MoveDown, 'S');
+			getContext()->player->assignKey(Player::Action::MoveLeft, 'A');
+			getContext()->player->assignKey(Player::Action::MoveRight, 'D');
+			getContext()->player->resetKeyFlags();
 
 			requestStackPop();
 			requestStackPush(States::Menu);
 		}
 		else if (mOptionIndex == ARROWKEYS)
 		{ // Set controls to this
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveUp, VK_UP);
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveDown, VK_DOWN);
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveLeft, VK_LEFT);
-			getContext()->game->mPlayer.assignKey(Player::Action::MoveRight, VK_RIGHT);
-			getContext()->game->mPlayer.resetKeyFlags();
+			getContext()->player->assignKey(Player::Action::MoveUp, VK_UP);
+			getContext()->player->assignKey(Player::Action::MoveDown, VK_DOWN);
+			getContext()->player->assignKey(Player::Action::MoveLeft, VK_LEFT);
+			getContext()->player->assignKey(Player::Action::MoveRight, VK_RIGHT);
+			getContext()->player->resetKeyFlags();
 
 			requestStackPop();
 			requestStackPush(States::Menu);
@@ -113,7 +113,7 @@ void SettingState::BuildScene()
 	
 
 
-	//getContext()->game->BuildMaterials();
+	getContext()->game->BuildMaterials();
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
 	mBackground = backgroundSprite.get();
@@ -160,10 +160,7 @@ void SettingState::BuildScene()
 	/*for (auto& e : getContext()->game->mAllRitems)
 		getContext()->game->mOpaqueRitems.push_back(e.get());*/
 
-	if (getContext()->game->mFrameResources.size() > 0)
-	{
-		getContext()->game->mFrameResources.clear();
-	}
+	getContext()->game->ClearFrameResources();
 	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 }

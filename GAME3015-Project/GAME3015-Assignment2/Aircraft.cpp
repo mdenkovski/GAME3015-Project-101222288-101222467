@@ -35,8 +35,8 @@ void Aircraft::drawCurrent() const
 	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 	UINT matCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(MaterialConstants));
 
-	auto objectCB = state->getContext()->game->mCurrFrameResource->ObjectCB->Resource();
-	auto matCB = state->getContext()->game->mCurrFrameResource->MaterialCB->Resource();
+	auto objectCB = state->getContext()->game->GetCurrFrameResource()->ObjectCB->Resource();
+	auto matCB = state->getContext()->game->GetCurrFrameResource()->MaterialCB->Resource();
 
 	if (mAircraftRitem != nullptr)
 	{
@@ -44,8 +44,8 @@ void Aircraft::drawCurrent() const
 		state->getContext()->game->getCmdList()->IASetIndexBuffer(&mAircraftRitem->Geo->IndexBufferView());
 		state->getContext()->game->getCmdList()->IASetPrimitiveTopology(mAircraftRitem->PrimitiveType);
 
-		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(state->getContext()->game->mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
-		tex.Offset(mAircraftRitem->Mat->DiffuseSrvHeapIndex, state->getContext()->game->mCbvSrvDescriptorSize);
+		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(state->getContext()->game->GetSrvSrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
+		tex.Offset(mAircraftRitem->Mat->DiffuseSrvHeapIndex, state->getContext()->game->GetCbvSrvDescriptorSize());
 
 		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress =  objectCB->GetGPUVirtualAddress() + (UINT64)mAircraftRitem->ObjCBIndex * objCBByteSize;
 		D3D12_GPU_VIRTUAL_ADDRESS matCBAddress = matCB->GetGPUVirtualAddress() + (UINT64)mAircraftRitem->Mat->MatCBIndex * matCBByteSize;

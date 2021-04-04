@@ -21,7 +21,12 @@ public:
 	~Game();
 
 	virtual bool Initialize()override;
-public:
+
+	void ClearFrameResources();
+	void BuildFrameResources(int numRenderItems);
+
+	void BuildMaterials();
+private:
 	virtual void OnResize()override;
 	virtual void Update(const GameTimer& gt)override;
 	virtual void Draw(const GameTimer& gt)override;
@@ -47,14 +52,14 @@ public:
 	void BuildShapeGeometry();
 	void BuildPSOs();
 	//void BuildFrameResources();
-	void BuildFrameResources(int numRenderItems);
-	void BuildMaterials();
+	
+	
 	void BuildRenderItems();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
 	std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
 
-public:
+private:
 
 	std::vector<std::unique_ptr<FrameResource>> mFrameResources;
 	FrameResource* mCurrFrameResource = nullptr;
@@ -98,5 +103,8 @@ public:
 	//std::vector<std::unique_ptr<RenderItem>>& getRenderItems() { return mAllRitems; }
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
+	ID3D12DescriptorHeap* GetSrvSrvDescriptorHeap() { return mSrvDescriptorHeap.Get(); }
+	UINT GetCbvSrvDescriptorSize() { return mCbvSrvDescriptorSize; }
+	FrameResource* GetCurrFrameResource() { return mCurrFrameResource; }
 
 };

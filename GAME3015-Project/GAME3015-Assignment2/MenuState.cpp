@@ -98,10 +98,10 @@ void MenuState::BuildScene()
 	getContext()->game->BuildMaterials();
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
-	mBackground = backgroundSprite.get();
-	mBackground->setPosition(0, 0, 0.0);
-	mBackground->setScale(12.0, 1.0, 8.5);
-	mBackground->setVelocity(0, 0, 0);
+	//mBackground = backgroundSprite.get();
+	backgroundSprite->setPosition(0, 0, 0.0);
+	backgroundSprite->setScale(12.0, 1.0, 8.5);
+	backgroundSprite->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
 	std::unique_ptr<SpriteNode> menuPlaySprite(new SpriteNode(this, "MenuPlay"));
@@ -142,10 +142,8 @@ void MenuState::BuildScene()
 	/*for (auto& e : getContext()->game->mAllRitems)
 		getContext()->game->mOpaqueRitems.push_back(e.get());*/
 
-	if (getContext()->game->mFrameResources.size() > 0)
-	{
-		getContext()->game->mFrameResources.clear();
-	}
+	
+	getContext()->game->ClearFrameResources();
 	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 }

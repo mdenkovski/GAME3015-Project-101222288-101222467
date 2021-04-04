@@ -8,14 +8,14 @@ SpriteNode::SpriteNode(State* state, std::string spriteImage) : Entity(state)
 
 void SpriteNode::drawCurrent() const
 {
-	renderer->World = getTransform();
-	renderer->NumFramesDirty++;
+	//renderer->World = getTransform();
+	//renderer->NumFramesDirty++;
 
 	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 	UINT matCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(MaterialConstants));
 
-	auto objectCB = state->getContext()->game->mCurrFrameResource->ObjectCB->Resource();
-	auto matCB = state->getContext()->game->mCurrFrameResource->MaterialCB->Resource();
+	auto objectCB = state->getContext()->game->GetCurrFrameResource()->ObjectCB->Resource();
+	auto matCB = state->getContext()->game->GetCurrFrameResource()->MaterialCB->Resource();
 
 	if (mSpriteNodeRitem != nullptr)
 	{
@@ -23,8 +23,8 @@ void SpriteNode::drawCurrent() const
 		state->getContext()->game->getCmdList()->IASetIndexBuffer(&mSpriteNodeRitem->Geo->IndexBufferView());
 		state->getContext()->game->getCmdList()->IASetPrimitiveTopology(mSpriteNodeRitem->PrimitiveType);
 
-		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(state->getContext()->game->mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
-		tex.Offset(mSpriteNodeRitem->Mat->DiffuseSrvHeapIndex, state->getContext()->game->mCbvSrvDescriptorSize);
+		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(state->getContext()->game->GetSrvSrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
+		tex.Offset(mSpriteNodeRitem->Mat->DiffuseSrvHeapIndex, state->getContext()->game->GetCbvSrvDescriptorSize());
 
 		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + mSpriteNodeRitem->ObjCBIndex * objCBByteSize;
 		D3D12_GPU_VIRTUAL_ADDRESS matCBAddress = matCB->GetGPUVirtualAddress() + mSpriteNodeRitem->Mat->MatCBIndex * matCBByteSize;
