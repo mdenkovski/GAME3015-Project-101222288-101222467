@@ -1,5 +1,5 @@
 #include "FrameResource.h"
-
+#include <Windows.h>
 FrameResource::FrameResource(ID3D12Device* device, UINT passCount, UINT objectCount, UINT materialCount)
 {
     ThrowIfFailed(device->CreateCommandAllocator(
@@ -14,4 +14,5 @@ FrameResource::FrameResource(ID3D12Device* device, UINT passCount, UINT objectCo
 
 FrameResource::~FrameResource()
 {
+    Sleep(100);
 }
