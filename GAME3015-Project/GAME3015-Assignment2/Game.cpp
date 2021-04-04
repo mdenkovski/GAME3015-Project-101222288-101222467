@@ -38,7 +38,7 @@ bool Game::Initialize()
 	BuildDescriptorHeaps();
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
-	BuildMaterials();
+	//BuildMaterials();
 	registerStates();
 
 	//BuildRenderItems();
@@ -86,7 +86,7 @@ void Game::Update(const GameTimer& gt)
 
 
 	// Cycle through the circular frame resource array.
-	mCurrFrameResourceIndex = (mCurrFrameResourceIndex + 1) % gNumFrameResources;
+	//mCurrFrameResourceIndex = (mCurrFrameResourceIndex + 1) % gNumFrameResources;
 	mCurrFrameResource = mFrameResources[mCurrFrameResourceIndex].get();
 
 	// Has the GPU finished processing the commands of the current frame resource?
@@ -700,7 +700,7 @@ void Game::BuildPSOs()
 
 void Game::ClearFrameResources()
 {
-	mFrameResources.clear();
+	//mFrameResources.clear();
 }
 
 //void Game::BuildFrameResources()
@@ -717,6 +717,12 @@ void Game::BuildFrameResources(int numRenderItems)
 	{
 		mFrameResources.push_back(std::make_unique<FrameResource>(md3dDevice.Get(),
 			1, (UINT)numRenderItems, (UINT)mMaterials.size()));
+	}
+
+	mCurrFrameResourceIndex = mFrameResources.size() - 1;
+	if (mCurrFrameResourceIndex<0)
+	{
+		mCurrFrameResourceIndex = 0;
 	}
 }
 //step13

@@ -89,12 +89,6 @@ void MenuState::updateOptionText()
 
 void MenuState::BuildScene()
 {
-
-	/*getContext()->game->mAllRitems.clear();
-	getContext()->game->mOpaqueRitems.clear();*/
-	/*getContext()->game->mFrameResources.clear();*/
-
-
 	getContext()->game->BuildMaterials();
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
@@ -137,10 +131,6 @@ void MenuState::BuildScene()
 	mSceneGraph->attachChild(std::move(menuArrowSprite));
 
 	mSceneGraph->build();
-
-
-	/*for (auto& e : getContext()->game->mAllRitems)
-		getContext()->game->mOpaqueRitems.push_back(e.get());*/
 
 	
 	getContext()->game->ClearFrameResources();
