@@ -8,7 +8,7 @@
 class SettingState : public State
 {
 public: 
-	SettingState(StateStack& stack, Context context, Game* game);
+	SettingState(StateStack* stack, Context* context);
 	virtual void			draw();
 	virtual bool			update(const GameTimer& gt);
 	virtual bool			handleEvent(WPARAM btnState);
@@ -27,7 +27,6 @@ private:
 
 private:
 
-	SceneNode* mSceneGraph;
 	SpriteNode* mBackground;
 	SpriteNode* mSettingWASD;
 	SpriteNode* mSettingARROW;

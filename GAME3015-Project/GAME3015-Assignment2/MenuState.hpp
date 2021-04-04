@@ -9,7 +9,7 @@
 class MenuState : public State
 {
 	public:
-								MenuState(StateStack& stack, Context context, Game* game);
+								MenuState(StateStack* stack, Context* context);
 
 		virtual void			draw();
 		virtual bool			update(const GameTimer& gt);
@@ -29,7 +29,6 @@ class MenuState : public State
 
 	private:
 
-		SceneNode* mSceneGraph;
 		SpriteNode* mBackground;
 		SpriteNode* mMenuPlay;
 		SpriteNode* mMenuSetting;

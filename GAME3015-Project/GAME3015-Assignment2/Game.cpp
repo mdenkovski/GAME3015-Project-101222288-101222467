@@ -5,8 +5,8 @@ const int gNumFrameResources = 3;
 
 Game::Game(HINSTANCE hInstance)
 	: D3DApp(hInstance)
-	, mWorld(this)
-	, mStateStack(State::Context(mPlayer))
+	//, mWorld(this)
+	, mStateStack(State::Context(&mPlayer, this))
 {
 }
 
@@ -170,11 +170,11 @@ void Game::Draw(const GameTimer& gt)
 
 void Game::registerStates()
 {
-	mStateStack.registerState<TitleState>(States::Title, this);
-	mStateStack.registerState<MenuState>(States::Menu, this);
-	mStateStack.registerState<GameState>(States::Game, this);
-	mStateStack.registerState<PauseState>(States::Pause, this);
-	mStateStack.registerState<SettingState>(States::Setting, this);
+	mStateStack.registerState<TitleState>(States::Title);
+	mStateStack.registerState<MenuState>(States::Menu);
+	mStateStack.registerState<GameState>(States::Game);
+	mStateStack.registerState<PauseState>(States::Pause);
+	mStateStack.registerState<SettingState>(States::Setting);
 }
 
 void Game::OnMouseDown(WPARAM btnState, int x, int y)

@@ -1,28 +1,27 @@
 #include "GameState.hpp"
 #include "Game.hpp"
 
-GameState::GameState(StateStack& stack, Context context, Game* game)
-: State(stack, context, game)
-, mWorld(&(mGame->mWorld))
-, mPlayer(*context.player)
+GameState::GameState(StateStack* stack, Context* context)
+: State(stack, context)
+, mWorld(this)
 , mPauseBackground(nullptr)
 , mPausedText(nullptr)
 , mPauseInstructionText(nullptr)
-, mPauseSceneGraph(new SceneNode(game))
+, mPauseSceneGraph(new SceneNode(this))
 {
 	BuildScene();
 }
 
 void GameState::draw()
 {
-	mWorld->draw();
+	mWorld.draw();
 	
 }
 
 bool GameState::update(const GameTimer& gt)
 {
 	ProcessInput();
-	mWorld->update(gt);
+	mWorld.update(gt);
 
 	return true;
 }
@@ -40,26 +39,26 @@ bool GameState::handleEvent(WPARAM btnState)
 
 void GameState::ProcessInput()
 {
-	CommandQueue& commands = mWorld->getCommandQueue();
-	mPlayer.handleEvent(commands);
-	mPlayer.handleRealtimeInput(commands);
+	CommandQueue& commands = mWorld.getCommandQueue();
+	getContext()->player->handleEvent(commands);
+	getContext()->player->handleRealtimeInput(commands);
 }
 
 void GameState::BuildScene()
 {
 
-	mGame->mAllRitems.clear();
-	mGame->mOpaqueRitems.clear();
-	mGame->mFrameResources.clear();
+	getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();
+	getContext()->game->mFrameResources.clear();
 
-	mGame->BuildMaterials();
+	getContext()->game->BuildMaterials();
 
 
-	mWorld->buildScene();
+	mWorld.buildScene();
 
 	//pause stuff
 	
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame, "PauseDisplay"));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this, "PauseDisplay"));
 	mPauseBackground = backgroundSprite.get();
 	mPauseBackground->setPosition(0, 0.15, 0);
 	mPauseBackground->setScale(6, 1.0, 6);
@@ -68,10 +67,10 @@ void GameState::BuildScene()
 
 	mPauseSceneGraph->build();
 	//pause stuff end
-	for (auto& e : mGame->mAllRitems)
-		mGame->mOpaqueRitems.push_back(e.get());
+	for (auto& e : getContext()->game->mAllRitems)
+		getContext()->game->mOpaqueRitems.push_back(e.get());
 
-	mGame->BuildFrameResources();
+	getContext()->game->BuildFrameResources();
 
 
 

@@ -5,15 +5,18 @@
 #include "CommandQueue.hpp"
 #include "Command.hpp"
 
+class State;
+
 class World
 {
 public:
-	explicit							World(Game* game);
+	World(State* state);
+	~World();
 	void								update(const GameTimer& gt);
 	void								draw();
 	CommandQueue&						getCommandQueue();
 
-	Game* Getgame() { return mGame; }
+	//Game* Getgame() { return mGame; }
 
 	void								buildScene();
 private:
@@ -34,7 +37,7 @@ private:
 
 
 private:
-	Game* mGame;
+	State* mState;
 
 	SceneNode* mSceneGraph;
 	std::array<SceneNode*, 2>	mSceneLayers;

@@ -4,6 +4,7 @@
 #include "../../Common/UploadBuffer.h"
 #include "../../Common/GeometryGenerator.h"
 #include "../../Common/Camera.h"
+
 #include "FrameResource.h"
 
 #include "Category.hpp"
@@ -49,7 +50,7 @@ struct RenderItem
 	int BaseVertexLocation = 0;
 };
 
-class Game;
+class State;
 struct Command;
 
 class SceneNode
@@ -59,7 +60,7 @@ public:
 
 
 public:
-	SceneNode(Game* game);
+	SceneNode(State* state);
 
 	void					attachChild(Ptr child);
 	Ptr						detachChild(const SceneNode& node);
@@ -95,7 +96,7 @@ private:
 
 
 protected:
-	Game*					game;
+	State*					state;
 	RenderItem*				renderer;
 private:
 	XMFLOAT3				mWorldPosition;

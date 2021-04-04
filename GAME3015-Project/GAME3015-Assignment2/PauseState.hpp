@@ -11,7 +11,7 @@
 class PauseState : public State
 {
 	public:
-							PauseState(StateStack& stack, Context context, Game* game);
+							PauseState(StateStack* stack, Context* context);
 							~PauseState();
 
 		virtual void		draw();
@@ -20,7 +20,6 @@ class PauseState : public State
 
 
 	private:
-		SceneNode* mSceneGraph;
 		SpriteNode* mBackground;
 		SpriteNode* mPausedText;
 		SpriteNode* mInstructionText;

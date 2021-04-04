@@ -4,8 +4,8 @@
 #include "GameState.hpp"
 #include "State.hpp"
 
-PauseState::PauseState(StateStack& stack, Context context, Game* game)
-: State(stack, context, game)
+PauseState::PauseState(StateStack* stack, Context* context)
+: State(stack, context)
 
 {
 	BuildScene();

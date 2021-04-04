@@ -5,7 +5,7 @@ class SpriteNode :
     public Entity
 {
 public:
-	SpriteNode(Game* game, std::string spriteImage = "Desert");
+	SpriteNode(State* state, std::string spriteImage = "Desert");
 	RenderItem* mSpriteNodeRitem;
 
 private:

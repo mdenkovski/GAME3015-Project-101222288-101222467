@@ -1,15 +1,20 @@
 #define NOMINMAX
 
 #include "World.hpp"
+#include "State.hpp"
 
-World::World(Game* game)
-	: mSceneGraph(new SceneNode(game))
-	, mGame(game)
+World::World(State* state)
+	: mState(state)
+	, mSceneGraph(new SceneNode(state))
 	, mPlayerAircraft(nullptr)
 	, mBackground(nullptr)
 	, mWorldBounds(-4.5f, 4.5f, -3.0f, 3.0f) //Left, Right, Down, Up
 	, mSpawnPosition(0.f, 0.f)
 	, mScrollSpeed(1.0f)
+{
+}
+
+World::~World()
 {
 }
 
@@ -56,35 +61,35 @@ void World::buildScene()
 {
 	mSceneGraph->ClearChildren();
 
-	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mGame));
+	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mState));
 	mPlayerAircraft = player.get();
 	mPlayerAircraft->setPosition(0.0f, 0.1f, 0.0f);
 	mPlayerAircraft->setScale(0.5f, 0.5f, 0.5f);
 	mPlayerAircraft->setVelocity(mScrollSpeed, 0.0f, 0.0f);
 	mSceneGraph->attachChild(std::move(player));
 
-	std::unique_ptr<Aircraft> enemy1(new Aircraft(Aircraft::Type::Raptor, mGame));
+	std::unique_ptr<Aircraft> enemy1(new Aircraft(Aircraft::Type::Raptor, mState));
 	auto raptor = enemy1.get();
 	raptor->setPosition(0.5f, 0.0f, -1.0f);
 	raptor->setScale(1.0f, 1.0f, 1.0f);
 	raptor->setWorldRotation(0.0f,  0, 0.0f);
 	mPlayerAircraft->attachChild(std::move(enemy1));
 
-	std::unique_ptr<Aircraft> enemy2(new Aircraft(Aircraft::Type::Raptor, mGame));
+	std::unique_ptr<Aircraft> enemy2(new Aircraft(Aircraft::Type::Raptor, mState));
 	auto raptor2 = enemy2.get();
 	raptor2->setPosition(-0.5, 0, -1);
 	raptor2->setScale(1.0, 1.0, 1.0);
 	raptor2->setWorldRotation(0, 0, 0);
 	mPlayerAircraft->attachChild(std::move(enemy2));
 
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mState));
 	mBackground = backgroundSprite.get();
 	mBackground->setPosition(0, 0, 0.0);
 	mBackground->setScale(16.0, 1.0, 16.0);
 	mBackground->setVelocity(0,0, -mScrollSpeed);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
-	std::unique_ptr<SpriteNode> backgroundSprite2(new SpriteNode(mGame));
+	std::unique_ptr<SpriteNode> backgroundSprite2(new SpriteNode(mState));
 	mBackground2 = backgroundSprite2.get();
 	mBackground2->setPosition(0, 0, 16);
 	mBackground2->setScale(16.0, 1.0, 16.0);

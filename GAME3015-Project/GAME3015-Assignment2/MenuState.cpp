@@ -1,10 +1,9 @@
 #include "MenuState.hpp"
 #include "Game.hpp"
 
-MenuState::MenuState(StateStack& stack, Context context, Game* game)
-: State(stack, context, game)
+MenuState::MenuState(StateStack* stack, Context* context)
+: State(stack, context)
 , mOptionIndex(0)
-, mSceneGraph(new SceneNode(game))
 , mBackground(nullptr)
 , mMenuPlay(nullptr)
 , mMenuSetting(nullptr)
@@ -91,21 +90,21 @@ void MenuState::updateOptionText()
 void MenuState::BuildScene()
 {
 
-	mGame->mAllRitems.clear();
-	mGame->mOpaqueRitems.clear();
-	mGame->mFrameResources.clear();
+	getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();
+	getContext()->game->mFrameResources.clear();
 
 
-	mGame->BuildMaterials();
+	getContext()->game->BuildMaterials();
 
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
 	mBackground = backgroundSprite.get();
 	mBackground->setPosition(0, 0, 0.0);
 	mBackground->setScale(12.0, 1.0, 8.5);
 	mBackground->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
-	std::unique_ptr<SpriteNode> menuPlaySprite(new SpriteNode(mGame, "MenuPlay"));
+	std::unique_ptr<SpriteNode> menuPlaySprite(new SpriteNode(this, "MenuPlay"));
 	mMenuPlay = menuPlaySprite.get();
 	mMenuPlay->setPosition(0, 0.1, 1.0);
 	mMenuPlay->setScale(3.0, 1.0, 2.0);
@@ -113,7 +112,7 @@ void MenuState::BuildScene()
 	mSceneGraph->attachChild(std::move(menuPlaySprite));
 	mOptions.push_back(mMenuPlay);
 
-	std::unique_ptr<SpriteNode> menuSettingSprite(new SpriteNode(mGame, "MenuSettingTex"));
+	std::unique_ptr<SpriteNode> menuSettingSprite(new SpriteNode(this, "MenuSettingTex"));
 	mMenuSetting = menuSettingSprite.get();
 	mMenuSetting->setPosition(0, 0.1, 0.0);
 	mMenuSetting->setScale(3.0, 1.0, 2.0);
@@ -121,7 +120,7 @@ void MenuState::BuildScene()
 	mSceneGraph->attachChild(std::move(menuSettingSprite));
 	mOptions.push_back(mMenuSetting);
 
-	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "MenuQuit"));
+	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(this, "MenuQuit"));
 	mMenuQuit = menuQuitSprite.get();
 	mMenuQuit->setPosition(0, 0.1, -1.0);
 	mMenuQuit->setScale(3.0, 1.0, 2.0);
@@ -130,7 +129,7 @@ void MenuState::BuildScene()
 
 	mOptions.push_back(mMenuQuit);
 
-	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(mGame, "MenuArrow"));
+	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(this, "MenuArrow"));
 	mMenuSelector = menuArrowSprite.get();
 	mMenuSelector->setPosition(-0.5, 0.1, 0.0);
 	mMenuSelector->setScale(0.5f, 1.0f, 0.5f);
@@ -140,9 +139,9 @@ void MenuState::BuildScene()
 	mSceneGraph->build();
 
 
-	for (auto& e : mGame->mAllRitems)
-		mGame->mOpaqueRitems.push_back(e.get());
+	for (auto& e : getContext()->game->mAllRitems)
+		getContext()->game->mOpaqueRitems.push_back(e.get());
 
-	mGame->BuildFrameResources();
+	getContext()->game->BuildFrameResources();
 
 }

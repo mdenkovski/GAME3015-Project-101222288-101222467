@@ -10,7 +10,7 @@
 class GameState : public State
 {
 	public:
-							GameState(StateStack& stack, Context context, Game* game);
+							GameState(StateStack* stack, Context* context);
 
 		virtual void		draw();
 		virtual bool		update(const GameTimer& gt);
@@ -21,8 +21,7 @@ class GameState : public State
 
 
 	private:
-		World*				mWorld;
-		Player&				mPlayer;
+		World				mWorld;
 	public:
 		SceneNode* mPauseSceneGraph;
 		SpriteNode* mPauseBackground;

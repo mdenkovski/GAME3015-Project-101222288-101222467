@@ -3,6 +3,7 @@
 
 #include "StateIdentifiers.hpp"
 #include "../../Common/d3dApp.h"
+#include "SpriteNode.h"
 #include <memory>
 
 class StateStack;
@@ -16,28 +17,29 @@ class State
 
 		struct Context
 		{
-			Context(Player& player);
+			Context(Player* player, Game* Game);
 			Player*				player;
+			Game*				game;
 		};
 
 
 	public:
-		State(StateStack& stack, Context context, Game* game);
+		State(StateStack* stack, Context* context);
 		virtual				~State();
 		virtual void		draw() = 0;
 		virtual bool		update(const GameTimer& gt) = 0;
 		virtual bool		handleEvent(WPARAM btnState) = 0;
 		virtual void		BuildScene() = 0;
-		Game*				mGame;
+		Context*			getContext() const;
 	protected:
 		void				requestStackPush(States::ID stateID);
 		void				requestStackPop();
 		void				requestStateClear();
-		Context				getContext() const;
 		StateStack*			mStack;
-	private:
-		
-		Context				mContext;
+
+		SceneNode*			mSceneGraph;
+private:
+		Context*			mContext;
 };
 
 #endif // BOOK_STATE_HPP

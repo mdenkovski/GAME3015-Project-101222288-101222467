@@ -29,7 +29,7 @@ class StateStack
 		explicit			StateStack(State::Context context);
 
 		template <typename T>
-		void				registerState(States::ID stateID, Game* game);
+		void				registerState(States::ID stateID);
 
 		void				update(const GameTimer& gt);
 		void				draw();
@@ -68,11 +68,11 @@ class StateStack
 
 
 template <typename T>
-void StateStack::registerState(States::ID stateID, Game* game)
+void StateStack::registerState(States::ID stateID)
 {
-	mFactories[stateID] = [this, game] ()
+	mFactories[stateID] = [this] ()
 	{
-		return State::Ptr(new T(*this, mContext, game));
+		return State::Ptr(new T(this, &mContext));
 	};
 
 }

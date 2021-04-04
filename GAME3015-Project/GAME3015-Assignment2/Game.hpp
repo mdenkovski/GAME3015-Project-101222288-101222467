@@ -88,7 +88,7 @@ public:
 
 	POINT mLastMousePos;
 	Camera mCamera;
-	World mWorld;
+	//World mWorld;
 	Player mPlayer;
 
 	StateStack	mStateStack;

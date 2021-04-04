@@ -1,11 +1,10 @@
 #include "SettingState.h"
 #include "Game.hpp"
 
-SettingState::SettingState(StateStack& stack, Context context, Game* game)
-	: State(stack, context, game)
+SettingState::SettingState(StateStack* stack, Context* context)
+	: State(stack, context)
 	, mOptions()
 	, mOptionIndex(0)
-	, mSceneGraph(new SceneNode(game))
 	, mBackground(nullptr)
 	, mSettingWASD(nullptr)
 	, mSettingARROW(nullptr)
@@ -44,22 +43,22 @@ bool SettingState::handleEvent(WPARAM btnState)
 	{
 		if (mOptionIndex == WASD)
 		{ // Set controls to this
-			mGame->mPlayer.assignKey(Player::Action::MoveUp, 'W');
-			mGame->mPlayer.assignKey(Player::Action::MoveDown, 'S');
-			mGame->mPlayer.assignKey(Player::Action::MoveLeft, 'A');
-			mGame->mPlayer.assignKey(Player::Action::MoveRight, 'D');
-			mGame->mPlayer.resetKeyFlags();
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveUp, 'W');
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveDown, 'S');
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveLeft, 'A');
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveRight, 'D');
+			getContext()->game->mPlayer.resetKeyFlags();
 
 			requestStackPop();
 			requestStackPush(States::Menu);
 		}
 		else if (mOptionIndex == ARROWKEYS)
 		{ // Set controls to this
-			mGame->mPlayer.assignKey(Player::Action::MoveUp, VK_UP);
-			mGame->mPlayer.assignKey(Player::Action::MoveDown, VK_DOWN);
-			mGame->mPlayer.assignKey(Player::Action::MoveLeft, VK_LEFT);
-			mGame->mPlayer.assignKey(Player::Action::MoveRight, VK_RIGHT);
-			mGame->mPlayer.resetKeyFlags();
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveUp, VK_UP);
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveDown, VK_DOWN);
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveLeft, VK_LEFT);
+			getContext()->game->mPlayer.assignKey(Player::Action::MoveRight, VK_RIGHT);
+			getContext()->game->mPlayer.resetKeyFlags();
 
 			requestStackPop();
 			requestStackPush(States::Menu);
@@ -109,21 +108,21 @@ void SettingState::updateOptionText()
 void SettingState::BuildScene()
 {
 
-	mGame->mAllRitems.clear();
-	mGame->mOpaqueRitems.clear();
-	mGame->mFrameResources.clear();
+	getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();
+	getContext()->game->mFrameResources.clear();
 
 
-	mGame->BuildMaterials();
+	getContext()->game->BuildMaterials();
 
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(mGame));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
 	mBackground = backgroundSprite.get();
 	mBackground->setPosition(0, 0, 0.0);
 	mBackground->setScale(12.0, 1.0, 8.5);
 	mBackground->setVelocity(0, 0, 0);
 	mSceneGraph->attachChild(std::move(backgroundSprite));
 
-	std::unique_ptr<SpriteNode> mSettingWASDSprite(new SpriteNode(mGame, "SettingWASD"));
+	std::unique_ptr<SpriteNode> mSettingWASDSprite(new SpriteNode(this, "SettingWASD"));
 	mSettingWASD = mSettingWASDSprite.get();
 	mSettingWASD->setPosition(0, 0.1, 1.0);
 	mSettingWASD->setScale(3.0, 1.0, 2.0);
@@ -131,7 +130,7 @@ void SettingState::BuildScene()
 	mSceneGraph->attachChild(std::move(mSettingWASDSprite));
 	mOptions.push_back(mSettingWASD);
 
-	std::unique_ptr<SpriteNode> mSettingARROWSprite(new SpriteNode(mGame, "SettingArrow"));
+	std::unique_ptr<SpriteNode> mSettingARROWSprite(new SpriteNode(this, "SettingArrow"));
 	mSettingARROW = mSettingARROWSprite.get();
 	mSettingARROW->setPosition(0, 0.1, 0.0);
 	mSettingARROW->setScale(3.0, 1.0, 2.0);
@@ -139,7 +138,7 @@ void SettingState::BuildScene()
 	mSceneGraph->attachChild(std::move(mSettingARROWSprite));
 	mOptions.push_back(mSettingARROW);
 
-	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(mGame, "SettingReturn"));
+	std::unique_ptr<SpriteNode> menuQuitSprite(new SpriteNode(this, "SettingReturn"));
 	mMenuQuit = menuQuitSprite.get();
 	mMenuQuit->setPosition(0, 0.1, -1.0);
 	mMenuQuit->setScale(3.0, 1.0, 2.0);
@@ -148,7 +147,7 @@ void SettingState::BuildScene()
 
 	mOptions.push_back(mMenuQuit);
 
-	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(mGame, "MenuArrow"));
+	std::unique_ptr<SpriteNode> menuArrowSprite(new SpriteNode(this, "MenuArrow"));
 	mMenuSelector = menuArrowSprite.get();
 	mMenuSelector->setPosition(-0.5, 0.1, 0.0);
 	mMenuSelector->setScale(0.5f, 1.0f, 0.5f);
@@ -158,10 +157,10 @@ void SettingState::BuildScene()
 	mSceneGraph->build();
 
 
-	for (auto& e : mGame->mAllRitems)
-		mGame->mOpaqueRitems.push_back(e.get());
+	for (auto& e : getContext()->game->mAllRitems)
+		getContext()->game->mOpaqueRitems.push_back(e.get());
 
 
-	mGame->BuildFrameResources();
+	getContext()->game->BuildFrameResources();
 
 }
