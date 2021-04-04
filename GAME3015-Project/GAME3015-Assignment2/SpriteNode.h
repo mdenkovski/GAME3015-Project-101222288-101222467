@@ -6,7 +6,7 @@ class SpriteNode :
 {
 public:
 	SpriteNode(State* state, std::string spriteImage = "Desert");
-	RenderItem* mSpriteNodeRitem;
+	//RenderItem* mSpriteNodeRitem;
 
 private:
 	virtual void		drawCurrent() const;

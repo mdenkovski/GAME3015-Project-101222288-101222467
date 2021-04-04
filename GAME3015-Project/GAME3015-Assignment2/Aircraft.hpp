@@ -27,5 +27,5 @@ private:
 private:
 	Type				mType;
 	std::string			mSprite;
-	RenderItem* mAircraftRitem;
+	//RenderItem* mAircraftRitem;
 };
