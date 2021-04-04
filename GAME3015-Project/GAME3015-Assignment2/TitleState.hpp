@@ -13,8 +13,8 @@ class TitleState : public State
 		virtual bool		handleEvent(WPARAM btnState);
 
 	private:
-		SpriteNode* mBackground;
-		SpriteNode* mPrompt;
+		/*SpriteNode* mBackground;
+		SpriteNode* mPrompt;*/
 
 		
 
