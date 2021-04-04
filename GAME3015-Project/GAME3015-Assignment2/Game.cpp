@@ -5,7 +5,6 @@ const int gNumFrameResources = 3;
 
 Game::Game(HINSTANCE hInstance)
 	: D3DApp(hInstance)
-	//, mWorld(this)
 	, mStateStack(State::Context(&mPlayer, this))
 {
 }
@@ -40,6 +39,7 @@ bool Game::Initialize()
 	BuildShadersAndInputLayout();
 	BuildShapeGeometry();
 	BuildMaterials();
+	registerStates();
 
 	//BuildRenderItems();
 	//BuildFrameResources();
@@ -54,7 +54,6 @@ bool Game::Initialize()
 	// Wait until initialization is complete.
 	FlushCommandQueue();
 
-	registerStates();
 	mStateStack.pushState(States::Title);
 
 	return true;
@@ -217,7 +216,7 @@ void Game::AnimateMaterials(const GameTimer& gt)
 void Game::UpdateObjectCBs(const GameTimer& gt)
 {
 	auto currObjectCB = mCurrFrameResource->ObjectCB.get();
-	for (auto& e : mAllRitems)
+	for (auto& e : mStateStack.GetStateStack()->front().get()->mAllRitems)
 	{
 		// Only update the cbuffer data if the constants have changed.  
 		// This needs to be tracked per frame resource.
@@ -697,14 +696,14 @@ void Game::BuildPSOs()
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&opaquePsoDesc, IID_PPV_ARGS(&mOpaquePSO)));
 }
 
-void Game::BuildFrameResources()
-{
-	for (int i = 0; i < gNumFrameResources; ++i)
-	{
-		mFrameResources.push_back(std::make_unique<FrameResource>(md3dDevice.Get(),
-			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));
-	}
-}
+//void Game::BuildFrameResources()
+//{
+//	for (int i = 0; i < gNumFrameResources; ++i)
+//	{
+//		mFrameResources.push_back(std::make_unique<FrameResource>(md3dDevice.Get(),
+//			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));
+//	}
+//}
 void Game::BuildFrameResources(int numRenderItems)
 {
 	for (int i = 0; i < gNumFrameResources; ++i)

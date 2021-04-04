@@ -46,7 +46,7 @@ public:
 	void BuildShadersAndInputLayout();
 	void BuildShapeGeometry();
 	void BuildPSOs();
-	void BuildFrameResources();
+	//void BuildFrameResources();
 	void BuildFrameResources(int numRenderItems);
 	void BuildMaterials();
 	void BuildRenderItems();
@@ -77,8 +77,8 @@ public:
 
 	ComPtr<ID3D12PipelineState> mOpaquePSO = nullptr;
 
-	// List of all the render items.
-	std::vector<std::unique_ptr<RenderItem>> mAllRitems;
+	//// List of all the render items.
+	//std::vector<std::unique_ptr<RenderItem>> mAllRitems;
 
 	// Render items divided by PSO.
 	std::vector<RenderItem*> mOpaqueRitems;
@@ -95,7 +95,7 @@ public:
 
 public:
 	ID3D12GraphicsCommandList*  getCmdList() { return mCommandList.Get(); }
-	std::vector<std::unique_ptr<RenderItem>>& getRenderItems() { return mAllRitems; }
+	//std::vector<std::unique_ptr<RenderItem>>& getRenderItems() { return mAllRitems; }
 	std::unordered_map<std::string, std::unique_ptr<Material>>& getMaterials() { return mMaterials; }
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>>& getGeometries() { return mGeometries; }
 

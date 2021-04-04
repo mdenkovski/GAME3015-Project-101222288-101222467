@@ -47,9 +47,8 @@ void GameState::ProcessInput()
 void GameState::BuildScene()
 {
 
-	getContext()->game->mAllRitems.clear();
-	getContext()->game->mOpaqueRitems.clear();
-	getContext()->game->mFrameResources.clear();
+	/*getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();*/
 
 	getContext()->game->BuildMaterials();
 
@@ -66,11 +65,15 @@ void GameState::BuildScene()
 	mPauseSceneGraph->attachChild(std::move(backgroundSprite));
 
 	mPauseSceneGraph->build();
-	//pause stuff end
-	for (auto& e : getContext()->game->mAllRitems)
-		getContext()->game->mOpaqueRitems.push_back(e.get());
+	////pause stuff end
+	//for (auto& e : getContext()->game->mAllRitems)
+	//	getContext()->game->mOpaqueRitems.push_back(e.get());
 
-	getContext()->game->BuildFrameResources();
+	if (getContext()->game->mFrameResources.size() > 0)
+	{
+		getContext()->game->mFrameResources.clear();
+	}
+	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 
 

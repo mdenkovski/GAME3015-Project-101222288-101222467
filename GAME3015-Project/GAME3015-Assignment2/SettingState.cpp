@@ -108,12 +108,12 @@ void SettingState::updateOptionText()
 void SettingState::BuildScene()
 {
 
-	getContext()->game->mAllRitems.clear();
-	getContext()->game->mOpaqueRitems.clear();
-	getContext()->game->mFrameResources.clear();
+	/*getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();*/
+	
 
 
-	getContext()->game->BuildMaterials();
+	//getContext()->game->BuildMaterials();
 
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(this));
 	mBackground = backgroundSprite.get();
@@ -157,10 +157,13 @@ void SettingState::BuildScene()
 	mSceneGraph->build();
 
 
-	for (auto& e : getContext()->game->mAllRitems)
-		getContext()->game->mOpaqueRitems.push_back(e.get());
+	/*for (auto& e : getContext()->game->mAllRitems)
+		getContext()->game->mOpaqueRitems.push_back(e.get());*/
 
-
-	getContext()->game->BuildFrameResources();
+	if (getContext()->game->mFrameResources.size() > 0)
+	{
+		getContext()->game->mFrameResources.clear();
+	}
+	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 }

@@ -31,6 +31,7 @@ class State
 		virtual bool		handleEvent(WPARAM btnState) = 0;
 		virtual void		BuildScene() = 0;
 		Context*			getContext() const;
+		std::vector<std::unique_ptr<RenderItem>> mAllRitems;
 	protected:
 		void				requestStackPush(States::ID stateID);
 		void				requestStackPop();
@@ -38,6 +39,7 @@ class State
 		StateStack*			mStack;
 
 		SceneNode*			mSceneGraph;
+		// List of all the render items.
 private:
 		Context*			mContext;
 };

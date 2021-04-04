@@ -44,7 +44,7 @@ void SpriteNode::buildCurrent()
 	renderer = render.get();
 	renderer->World = getTransform();
 	XMStoreFloat4x4(&renderer->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
-	renderer->ObjCBIndex = (UINT)state->getContext()->game->getRenderItems().size();
+	renderer->ObjCBIndex = (UINT)state->mAllRitems.size();
 	renderer->Mat = state->getContext()->game->getMaterials()[mSprite].get();
 	renderer->Geo = state->getContext()->game->getGeometries()["boxGeo"].get();
 	renderer->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -52,6 +52,6 @@ void SpriteNode::buildCurrent()
 	renderer->StartIndexLocation = renderer->Geo->DrawArgs["box"].StartIndexLocation;
 	renderer->BaseVertexLocation = renderer->Geo->DrawArgs["box"].BaseVertexLocation;
 	mSpriteNodeRitem = render.get();
-	state->getContext()->game->getRenderItems().push_back(std::move(render));
+	state->mAllRitems.push_back(std::move(render));
 
 }

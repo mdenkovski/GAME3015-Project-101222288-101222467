@@ -90,9 +90,9 @@ void MenuState::updateOptionText()
 void MenuState::BuildScene()
 {
 
-	getContext()->game->mAllRitems.clear();
-	getContext()->game->mOpaqueRitems.clear();
-	getContext()->game->mFrameResources.clear();
+	/*getContext()->game->mAllRitems.clear();
+	getContext()->game->mOpaqueRitems.clear();*/
+	/*getContext()->game->mFrameResources.clear();*/
 
 
 	getContext()->game->BuildMaterials();
@@ -139,9 +139,13 @@ void MenuState::BuildScene()
 	mSceneGraph->build();
 
 
-	for (auto& e : getContext()->game->mAllRitems)
-		getContext()->game->mOpaqueRitems.push_back(e.get());
+	/*for (auto& e : getContext()->game->mAllRitems)
+		getContext()->game->mOpaqueRitems.push_back(e.get());*/
 
-	getContext()->game->BuildFrameResources();
+	if (getContext()->game->mFrameResources.size() > 0)
+	{
+		getContext()->game->mFrameResources.clear();
+	}
+	getContext()->game->BuildFrameResources(mAllRitems.size());
 
 }
