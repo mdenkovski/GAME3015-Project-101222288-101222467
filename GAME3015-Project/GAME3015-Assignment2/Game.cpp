@@ -722,10 +722,12 @@ void Game::BuildFrameResources(int numRenderItems)
 //step13
 void Game::BuildMaterials()
 {
+	int index = 0;
+
 	auto Eagle = std::make_unique<Material>();
 	Eagle->Name = "Eagle";
-	Eagle->MatCBIndex = 0;
-	Eagle->DiffuseSrvHeapIndex = 0;
+	Eagle->MatCBIndex = index;
+	Eagle->DiffuseSrvHeapIndex = index++;
 	Eagle->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	Eagle->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	Eagle->Roughness = 0.2f;
@@ -734,8 +736,8 @@ void Game::BuildMaterials()
 
 	auto Raptor = std::make_unique<Material>();
 	Raptor->Name = "Raptor";
-	Raptor->MatCBIndex = 1;
-	Raptor->DiffuseSrvHeapIndex = 1;
+	Raptor->MatCBIndex = index;
+	Raptor->DiffuseSrvHeapIndex = index++;
 	Raptor->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	Raptor->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	Raptor->Roughness = 0.2f;
@@ -744,8 +746,8 @@ void Game::BuildMaterials()
 
 	auto Desert = std::make_unique<Material>();
 	Desert->Name = "Desert";
-	Desert->MatCBIndex = 2;
-	Desert->DiffuseSrvHeapIndex = 2;
+	Desert->MatCBIndex = index;
+	Desert->DiffuseSrvHeapIndex = index++;
 	Desert->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	Desert->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	Desert->Roughness = 0.2f;
@@ -756,8 +758,8 @@ void Game::BuildMaterials()
 	// menu background material
 	auto TitleScreen = std::make_unique<Material>();
 	TitleScreen->Name = "TitleScreen";
-	TitleScreen->MatCBIndex = 3;
-	TitleScreen->DiffuseSrvHeapIndex = 3;
+	TitleScreen->MatCBIndex = index;
+	TitleScreen->DiffuseSrvHeapIndex = index++;
 	TitleScreen->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	TitleScreen->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	TitleScreen->Roughness = 0.2f;
@@ -767,8 +769,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto TitleScreenPrompt = std::make_unique<Material>();
 	TitleScreenPrompt->Name = "TitleScreenPrompt";
-	TitleScreenPrompt->MatCBIndex = 4;
-	TitleScreenPrompt->DiffuseSrvHeapIndex = 4;
+	TitleScreenPrompt->MatCBIndex = index;
+	TitleScreenPrompt->DiffuseSrvHeapIndex = index++;
 	TitleScreenPrompt->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	TitleScreenPrompt->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	TitleScreenPrompt->Roughness = 0.2f;
@@ -778,8 +780,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto MenuPlay = std::make_unique<Material>();
 	MenuPlay->Name = "MenuPlay";
-	MenuPlay->MatCBIndex = 5;
-	MenuPlay->DiffuseSrvHeapIndex = 5;
+	MenuPlay->MatCBIndex = index;
+	MenuPlay->DiffuseSrvHeapIndex = index++;
 	MenuPlay->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	MenuPlay->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	MenuPlay->Roughness = 0.2f;
@@ -789,8 +791,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto MenuQuit = std::make_unique<Material>();
 	MenuQuit->Name = "MenuQuit";
-	MenuQuit->MatCBIndex = 6;
-	MenuQuit->DiffuseSrvHeapIndex = 6;
+	MenuQuit->MatCBIndex = index;
+	MenuQuit->DiffuseSrvHeapIndex = index++;
 	MenuQuit->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	MenuQuit->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	MenuQuit->Roughness = 0.2f;
@@ -800,8 +802,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto MenuArrow = std::make_unique<Material>();
 	MenuArrow->Name = "MenuArrow";
-	MenuArrow->MatCBIndex = 7;
-	MenuArrow->DiffuseSrvHeapIndex = 7;
+	MenuArrow->MatCBIndex = index;
+	MenuArrow->DiffuseSrvHeapIndex = index++;
 	MenuArrow->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	MenuArrow->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	MenuArrow->Roughness = 0.2f;
@@ -811,8 +813,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto SettingWASD = std::make_unique<Material>();
 	SettingWASD->Name = "SettingWASD";
-	SettingWASD->MatCBIndex = 8;
-	SettingWASD->DiffuseSrvHeapIndex = 8;
+	SettingWASD->MatCBIndex = index;
+	SettingWASD->DiffuseSrvHeapIndex = index++;
 	SettingWASD->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SettingWASD->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	SettingWASD->Roughness = 0.2f;
@@ -822,8 +824,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto SettingArrow = std::make_unique<Material>();
 	SettingArrow->Name = "SettingArrow";
-	SettingArrow->MatCBIndex = 9;
-	SettingArrow->DiffuseSrvHeapIndex = 9;
+	SettingArrow->MatCBIndex = index;
+	SettingArrow->DiffuseSrvHeapIndex = index++;
 	SettingArrow->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SettingArrow->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	SettingArrow->Roughness = 0.2f;
@@ -833,8 +835,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto MenuSetting = std::make_unique<Material>();
 	MenuSetting->Name = "MenuSetting";
-	MenuSetting->MatCBIndex = 10;
-	MenuSetting->DiffuseSrvHeapIndex = 10;
+	MenuSetting->MatCBIndex = index;
+	MenuSetting->DiffuseSrvHeapIndex = index++;
 	MenuSetting->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	MenuSetting->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	MenuSetting->Roughness = 0.2f;
@@ -844,8 +846,8 @@ void Game::BuildMaterials()
 	// title prompt material
 	auto SettingReturn = std::make_unique<Material>();
 	SettingReturn->Name = "SettingReturn";
-	SettingReturn->MatCBIndex = 11;
-	SettingReturn->DiffuseSrvHeapIndex = 11;
+	SettingReturn->MatCBIndex = index;
+	SettingReturn->DiffuseSrvHeapIndex = index++;
 	SettingReturn->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SettingReturn->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	SettingReturn->Roughness = 0.2f;
@@ -855,8 +857,8 @@ void Game::BuildMaterials()
 
 	auto PauseDisplay = std::make_unique<Material>();
 	PauseDisplay->Name = "PauseDisplay";
-	PauseDisplay->MatCBIndex = 12;
-	PauseDisplay->DiffuseSrvHeapIndex = 12;
+	PauseDisplay->MatCBIndex = index;
+	PauseDisplay->DiffuseSrvHeapIndex = index++;
 	PauseDisplay->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	PauseDisplay->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
 	PauseDisplay->Roughness = 0.2f;
